@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1057804360889",
+    "project_id": "mlem-8d23b",
+    "storage_bucket": "mlem-8d23b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057804360889:android:9e011904f6de10c5cb8f68",
+        "android_client_info": {
+          "package_name": "com.example.mlem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057804360889-d2abkrafb9b3eli9dk9ch94k0557lhi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn0S-Hqcz561inoFuBNhtmz4xhDQpSY1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057804360889-d2abkrafb9b3eli9dk9ch94k0557lhi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057804360889:android:4219445657852833cb8f68",
+        "android_client_info": {
+          "package_name": "vn.edu.rmit.mlemmlem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057804360889-d2abkrafb9b3eli9dk9ch94k0557lhi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn0S-Hqcz561inoFuBNhtmz4xhDQpSY1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057804360889-d2abkrafb9b3eli9dk9ch94k0557lhi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
