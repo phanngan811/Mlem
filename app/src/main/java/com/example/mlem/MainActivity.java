@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println("new code");
     }
     public void onClickSignIn(View view){
             Intent i = new Intent(MainActivity.this, SignIn.class);
