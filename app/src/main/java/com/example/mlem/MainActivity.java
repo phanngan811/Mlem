@@ -12,9 +12,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, DashBoard.class);
-//        intent.putExtra("studentName", name);
-        startActivity(intent);
+        // uncomment this to test dashboard
+//        Intent intent = new Intent(MainActivity.this, DashBoard.class);
+//        startActivity(intent);
     }
     public void onClickSignIn(View view){
             Intent i = new Intent(MainActivity.this, SignIn.class);
