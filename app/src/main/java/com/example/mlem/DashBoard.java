@@ -1,45 +1,43 @@
 package com.example.mlem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DashBoard extends AppCompatActivity {
 
     RecyclerView recyclerView;
-
-    // Using ArrayList to store images data
-    ArrayList courseImg = new ArrayList<>(Arrays.asList(R.drawable.mlemmm, R.drawable.mlemmm,
-            R.drawable.mlemmm, R.drawable.mlemmm,
-            R.drawable.mlemmm, R.drawable.mlemmm,
-            R.drawable.mlemmm, R.drawable.mlemmm));
-    ArrayList courseName = new ArrayList<>(Arrays.asList("Data Structure", "C++", "C#", "JavaScript", "Java",
-            "C-Language", "HTML 5", "CSS"));
+    ArrayList<IngredientData> ingredientDataArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        ArrayList ingredients = new ArrayList<>(Arrays.asList("Data Structure", "C++", "C#", "JavaScript", "Java",
-                "C-Language", "HTML 5", "CSS"));
+        recyclerView=findViewById(R.id.idCourseRV);
 
-        // Getting reference of recyclerView
-        recyclerView = (RecyclerView) findViewById(R.id.shopIngredients);
+        // created new array list..
+        ingredientDataArrayList =new ArrayList<>();
 
-        // Setting the layout as linear
-        // layout for vertical orientation
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        // added data to array list
+        ingredientDataArrayList.add(new IngredientData("DSA",R.drawable.mlemmm));
+        ingredientDataArrayList.add(new IngredientData("JAVA",R.drawable.mlemmm));
+        ingredientDataArrayList.add(new IngredientData("C++",R.drawable.mlemmm));
+        ingredientDataArrayList.add(new IngredientData("Python",R.drawable.mlemmm));
+        ingredientDataArrayList.add(new IngredientData("Node Js",R.drawable.mlemmm));
 
-        // Sending reference and data to Adapter
-        Adapter adapter = new Adapter(DashBoard.this, courseImg, courseName);
+        // added data from arraylist to adapter class.
+        RecyclerViewAdapter adapter=new RecyclerViewAdapter(ingredientDataArrayList,this);
 
-        // Setting Adapter to RecyclerView
+        // setting grid layout manager to implement grid view.
+        // in this method '2' represents number of columns to be displayed in grid view.
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+
+        // at last set adapter to recycler view.
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 }

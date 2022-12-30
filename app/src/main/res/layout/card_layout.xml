@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="4dp"
+            >
+            <ImageView
+                android:id="@+id/ingredientImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:contentDescription="image"
+                android:src="@mipmap/ic_launcher" />
+        </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/ingredientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:text="ingredient name"
+        android:textAlignment="textStart"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/ingredientPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5px"
+        android:text="99,999 vnd"
+        android:textAlignment="textStart"
+        android:textColor="#808080"
+        android:textSize="16sp" />
+
+    </LinearLayout>
