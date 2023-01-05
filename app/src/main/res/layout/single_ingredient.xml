@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="10pt"
+    android:layout_marginLeft="10pt"
+
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="60pt"
+        android:layout_height="30pt"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/rauxanh" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt1"
+        android:layout_marginTop="10pt"
+        android:text="Thit Tom"
+        android:layout_marginLeft="10pt"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt2"
+        android:layout_marginLeft="50pt"
+        android:layout_marginRight="10pt"
+        android:layout_marginTop="10pt"
+        android:text="100gram"
+        android:textSize="15sp"/>
+
+</LinearLayout>
