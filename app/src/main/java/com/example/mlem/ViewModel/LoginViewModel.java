@@ -25,10 +25,6 @@ public class LoginViewModel extends AndroidViewModel {
         errorMessage = new MutableLiveData<>();
     }
 
-    public FirebaseUser getUser() {
-        return repository.getUser();
-    }
-
     public void login(String email, String password) {
         loginSuccess.setValue(false);
         errorMessage.setValue("");

@@ -6,14 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mlem.Repository.UserRepository;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterViewModel extends AndroidViewModel {
     private final UserRepository repository;
@@ -25,10 +22,6 @@ public class RegisterViewModel extends AndroidViewModel {
         repository = new UserRepository();
         registrationSuccess = new MutableLiveData<>();
         errorMessage = new MutableLiveData<>();
-    }
-
-    public FirebaseUser getUser() {
-        return repository.getUser();
     }
 
     public void register(String email, String password) {
