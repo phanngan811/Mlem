@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mlem.Repository.UserRepository;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,15 +13,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RegisterViewModel extends AndroidViewModel {
+public class LoginViewModel extends AndroidViewModel {
     private final UserRepository repository;
-    private final MutableLiveData<Boolean> registrationSuccess;
+    private final MutableLiveData<Boolean> loginSuccess;
     private final MutableLiveData<String> errorMessage;
 
-    public RegisterViewModel(@NonNull Application application) {
+    public LoginViewModel(@NonNull Application application) {
         super(application);
         repository = new UserRepository();
-        registrationSuccess = new MutableLiveData<>();
+        loginSuccess = new MutableLiveData<>();
         errorMessage = new MutableLiveData<>();
     }
 
@@ -31,14 +29,14 @@ public class RegisterViewModel extends AndroidViewModel {
         return repository.getUser();
     }
 
-    public void register(String email, String password) {
-        registrationSuccess.setValue(false);
+    public void login(String email, String password) {
+        loginSuccess.setValue(false);
         errorMessage.setValue("");
 
-        repository.register(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        repository.login(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                registrationSuccess.setValue(true);
+                loginSuccess.setValue(true);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -48,8 +46,8 @@ public class RegisterViewModel extends AndroidViewModel {
         });
     }
 
-    public LiveData<Boolean> getRegistrationSuccess() {
-        return registrationSuccess;
+    public LiveData<Boolean> getLoginSuccess() {
+        return loginSuccess;
     }
 
     public LiveData<String> getErrorMessage() {
