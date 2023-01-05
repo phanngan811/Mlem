@@ -4,6 +4,7 @@ public class Ingredient {
     private String id;
     private String name;
     private Double price;
+    private String tagId;
 
     public String getId() {
         return id;
@@ -27,5 +28,13 @@ public class Ingredient {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
     }
 }

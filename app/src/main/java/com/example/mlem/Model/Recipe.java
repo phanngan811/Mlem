@@ -2,7 +2,8 @@ package com.example.mlem.Model;
 
 public class Recipe {
     private String id;
-    private Ingredient[] ingredients;
+    private String[] ingredientIds;
+    private String tagId;
 
     public String getId() {
         return id;
@@ -12,11 +13,19 @@ public class Recipe {
         this.id = id;
     }
 
-    public Ingredient[] getIngredients() {
-        return ingredients;
+    public String[] getIngredientIds() {
+        return ingredientIds;
     }
 
-    public void setIngredients(Ingredient[] ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredientIds(String[] ingredientIds) {
+        this.ingredientIds = ingredientIds;
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
     }
 }
