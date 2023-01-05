@@ -6,6 +6,13 @@ public class Ingredient {
     private Double price;
     private String tagId;
 
+    public Ingredient(String id, String name, Double price, String tagId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.tagId = tagId;
+    }
+
     public String getId() {
         return id;
     }

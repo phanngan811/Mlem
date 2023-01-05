@@ -5,6 +5,12 @@ public class Recipe {
     private String[] ingredientIds;
     private String tagId;
 
+    public Recipe(String id, String[] ingredientIds, String tagId) {
+        this.id = id;
+        this.ingredientIds = ingredientIds;
+        this.tagId = tagId;
+    }
+
     public String getId() {
         return id;
     }
