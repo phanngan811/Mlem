@@ -7,6 +7,9 @@ public class Blog {
     private String author;
     private String recipeId;
 
+    public Blog() {
+    }
+
     public Blog(String id, String title, String content, String author, String recipeId) {
         this.id = id;
         this.title = title;
