@@ -11,13 +11,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class IngredientRepository {
@@ -25,13 +28,15 @@ public class IngredientRepository {
     private static final String TAG = "Ingredient Repository";
 
     private final FirebaseFirestore firestore;
+    private final CollectionReference collectionReference;
 
     public IngredientRepository() {
         firestore = FirebaseFirestore.getInstance();
+        collectionReference = firestore.collection(collectionPath);
     }
 
     public void insert(Ingredient ingredient) {
-        firestore.collection(collectionPath).add(ingredient).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        collectionReference.add(ingredient).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "Added with ID: " + documentReference.getId());
@@ -45,7 +50,7 @@ public class IngredientRepository {
     }
 
     public void update(Ingredient ingredient) {
-        firestore.collection(collectionPath).document(ingredient.getId()).set(ingredient).addOnSuccessListener(new OnSuccessListener<Void>() {
+        collectionReference.document(ingredient.getId()).set(ingredient).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "Updated successfully");
@@ -59,7 +64,7 @@ public class IngredientRepository {
     }
 
     public void delete(Ingredient ingredient) {
-        firestore.collection(collectionPath).document(ingredient.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        collectionReference.document(ingredient.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "Deleted successfully");
@@ -75,7 +80,7 @@ public class IngredientRepository {
     public Ingredient getOne(String id) {
         final Ingredient[] ingredient = {null};
 
-        firestore.collection(collectionPath).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        collectionReference.document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -100,24 +105,20 @@ public class IngredientRepository {
     public LiveData<List<Ingredient>> getAll() {
         final MutableLiveData<List<Ingredient>> liveData = new MutableLiveData<>();
 
-        firestore.collection(collectionPath).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Ingredient> ingredients = new ArrayList<>();
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                    Ingredient ingredient = documentSnapshot.toObject(Ingredient.class);
-                    ingredient.setId(documentSnapshot.getId());
-                    ingredients.add(ingredient);
-                }
-                liveData.setValue(ingredients);
+        collectionReference.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<Ingredient> ingredients = new ArrayList<>();
+            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                Ingredient ingredient = documentSnapshot.toObject(Ingredient.class);
+                ingredient.setId(documentSnapshot.getId());
+                ingredients.add(ingredient);
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error getting all", e);
-            }
-        });
+            liveData.setValue(ingredients);
+        }).addOnFailureListener(e -> Log.w(TAG, "Error getting all", e));
 
         return liveData;
+    }
+
+    public Task<QuerySnapshot> search(String queryString) {
+        return collectionReference.whereEqualTo("name", queryString).get();
     }
 }

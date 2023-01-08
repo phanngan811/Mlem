@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,13 +26,15 @@ public class BlogRepository {
     private static final String TAG = "Blog Repository";
 
     private final FirebaseFirestore firestore;
+    private final CollectionReference collectionReference;
 
     public BlogRepository() {
         firestore = FirebaseFirestore.getInstance();
+        collectionReference = firestore.collection(collectionPath);
     }
 
     public void insert(Blog blog) {
-        firestore.collection(collectionPath).add(blog).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        collectionReference.add(blog).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "Added with ID: " + documentReference.getId());
@@ -45,7 +48,7 @@ public class BlogRepository {
     }
 
     public void update(Blog blog) {
-        firestore.collection(collectionPath).document(blog.getId()).set(blog).addOnSuccessListener(new OnSuccessListener<Void>() {
+        collectionReference.document(blog.getId()).set(blog).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "Updated successfully");
@@ -59,7 +62,7 @@ public class BlogRepository {
     }
 
     public void delete(Blog blog) {
-        firestore.collection(collectionPath).document(blog.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        collectionReference.document(blog.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "Deleted successfully");
@@ -75,7 +78,7 @@ public class BlogRepository {
     public Blog getOne(String id) {
         final Blog[] blog = {null};
 
-        firestore.collection(collectionPath).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        collectionReference.document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -100,7 +103,7 @@ public class BlogRepository {
     public LiveData<List<Blog>> getAll() {
         final MutableLiveData<List<Blog>> liveData = new MutableLiveData<>();
 
-        firestore.collection(collectionPath).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Blog> blogs = new ArrayList<>();
@@ -119,5 +122,9 @@ public class BlogRepository {
         });
 
         return liveData;
+    }
+
+    public Task<QuerySnapshot> search(String queryString) {
+        return collectionReference.whereEqualTo("name", queryString).get();
     }
 }
