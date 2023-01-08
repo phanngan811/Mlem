@@ -6,16 +6,16 @@ public class Recipe {
     private String id;
     private String name;
     private List<String> ingredientIds;
-    private List<String> tagIds;
+    private List<String> tagNames;
 
     public Recipe() {
     }
 
-    public Recipe(String id, String name, List<String> ingredientIds, List<String> tagIds) {
+    public Recipe(String id, String name, List<String> ingredientIds, List<String> tagNames) {
         this.id = id;
         this.name = name;
         this.ingredientIds = ingredientIds;
-        this.tagIds = tagIds;
+        this.tagNames = tagNames;
     }
 
     public String getId() {
@@ -42,11 +42,11 @@ public class Recipe {
         this.ingredientIds = ingredientIds;
     }
 
-    public List<String> getTagIds() {
-        return tagIds;
+    public List<String> getTagNames() {
+        return tagNames;
     }
 
-    public void setTagIds(List<String> tagIds) {
-        this.tagIds = tagIds;
+    public void setTagNames(List<String> tagNames) {
+        this.tagNames = tagNames;
     }
 }
