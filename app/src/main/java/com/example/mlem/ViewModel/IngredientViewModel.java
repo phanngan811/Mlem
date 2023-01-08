@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Repository.IngredientRepository;
@@ -18,7 +19,7 @@ public class IngredientViewModel extends AndroidViewModel {
     public IngredientViewModel(@NonNull Application application) {
         super(application);
         repository = new IngredientRepository();
-        allIngredients = repository.getAll();
+        allIngredients = new MutableLiveData<>();
     }
 
     public void insert(Ingredient ingredient) {

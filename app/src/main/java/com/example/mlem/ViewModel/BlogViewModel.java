@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.mlem.Model.Blog;
 import com.example.mlem.Repository.BlogRepository;
@@ -18,7 +19,7 @@ public class BlogViewModel extends AndroidViewModel {
     public BlogViewModel(@NonNull Application application) {
         super(application);
         repository = new BlogRepository();
-        allBlogs = repository.getAll();
+        allBlogs = new MutableLiveData<>();
     }
 
     public void insert(Blog blog) {

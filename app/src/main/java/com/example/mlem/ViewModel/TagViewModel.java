@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.mlem.Model.Tag;
 import com.example.mlem.Repository.TagRepository;
@@ -18,7 +19,7 @@ public class TagViewModel extends AndroidViewModel {
     public TagViewModel(@NonNull Application application) {
         super(application);
         repository = new TagRepository();
-        allTags = repository.getAll();
+        allTags = new MutableLiveData<>();
     }
 
     public void insert(Tag tag) {
