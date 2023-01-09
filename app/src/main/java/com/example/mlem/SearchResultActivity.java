@@ -5,48 +5,43 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.mlem.Adapter.IngredientRVAdapter;
 import com.example.mlem.Enum.SearchType;
 import com.example.mlem.ViewModel.SearchResultViewModel;
 import com.example.mlem.databinding.ActivitySearchResultBinding;
 
 public class SearchResultActivity extends AppCompatActivity {
-    private ActivitySearchResultBinding binding;
-    private SearchResultViewModel viewModel;
-    private IngredientRVAdapter ingredientRVAdapter;
+    private ActivitySearchResultBinding mBinding;
+    private SearchResultViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySearchResultBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
+        mBinding = ActivitySearchResultBinding.inflate(getLayoutInflater());
+        View view = mBinding.getRoot();
         setContentView(view);
 
-        viewModel = new ViewModelProvider(this).get(SearchResultViewModel.class);
+        replaceFragment(new IngredientSearchResultFragment());
+
+        mViewModel = new ViewModelProvider(this).get(SearchResultViewModel.class);
 
         initListeners();
         initObservers();
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        binding.rvResultIngredient.setLayoutManager(linearLayoutManager);
-        ingredientRVAdapter = new IngredientRVAdapter();
-        binding.rvResultIngredient.setAdapter(ingredientRVAdapter);
-
-        viewModel.search("egg");
     }
 
     private void initListeners() {
-        binding.btnTypeBlog.setOnClickListener(view -> {
-            viewModel.changeSearchType(SearchType.BLOG);
+        mBinding.btnTypeBlog.setOnClickListener(view -> {
+            mViewModel.changeSearchType(SearchType.BLOG);
         });
-        binding.btnTypeIngredient.setOnClickListener(view -> {
-            viewModel.changeSearchType(SearchType.INGREDIENT);
+        mBinding.btnTypeIngredient.setOnClickListener(view -> {
+            mViewModel.changeSearchType(SearchType.INGREDIENT);
         });
-        binding.btnTypeRecipe.setOnClickListener(view -> {
-            viewModel.changeSearchType(SearchType.RECIPE);
+        mBinding.btnTypeRecipe.setOnClickListener(view -> {
+            mViewModel.changeSearchType(SearchType.RECIPE);
         });
     }
 
@@ -54,36 +49,28 @@ public class SearchResultActivity extends AppCompatActivity {
         int primary = ContextCompat.getColor(this, R.color.primary);
         int neutral = ContextCompat.getColor(this, R.color.neutral_400);
 
-        viewModel.getSearchType().observe(this, searchType -> {
+        mViewModel.getSearchType().observe(this, searchType -> {
             if (searchType == SearchType.RECIPE) {
-                binding.rvResultBlog.setVisibility(View.INVISIBLE);
-                binding.rvResultRecipe.setVisibility(View.VISIBLE);
-                binding.rvResultIngredient.setVisibility(View.INVISIBLE);
-
-                binding.btnTypeRecipe.setBackgroundColor(primary);
-                binding.btnTypeBlog.setBackgroundColor(neutral);
-                binding.btnTypeIngredient.setBackgroundColor(neutral);
+                mBinding.btnTypeRecipe.setBackgroundColor(primary);
+                mBinding.btnTypeBlog.setBackgroundColor(neutral);
+                mBinding.btnTypeIngredient.setBackgroundColor(neutral);
             } else if (searchType == SearchType.BLOG) {
-                binding.rvResultBlog.setVisibility(View.VISIBLE);
-                binding.rvResultRecipe.setVisibility(View.INVISIBLE);
-                binding.rvResultIngredient.setVisibility(View.INVISIBLE);
-
-                binding.btnTypeRecipe.setBackgroundColor(neutral);
-                binding.btnTypeBlog.setBackgroundColor(primary);
-                binding.btnTypeIngredient.setBackgroundColor(neutral);
+                mBinding.btnTypeRecipe.setBackgroundColor(neutral);
+                mBinding.btnTypeBlog.setBackgroundColor(primary);
+                mBinding.btnTypeIngredient.setBackgroundColor(neutral);
             } else {
-                binding.rvResultBlog.setVisibility(View.INVISIBLE);
-                binding.rvResultRecipe.setVisibility(View.INVISIBLE);
-                binding.rvResultIngredient.setVisibility(View.VISIBLE);
-
-                binding.btnTypeRecipe.setBackgroundColor(neutral);
-                binding.btnTypeBlog.setBackgroundColor(neutral);
-                binding.btnTypeIngredient.setBackgroundColor(primary);
+                replaceFragment(new IngredientSearchResultFragment());
+                mBinding.btnTypeRecipe.setBackgroundColor(neutral);
+                mBinding.btnTypeBlog.setBackgroundColor(neutral);
+                mBinding.btnTypeIngredient.setBackgroundColor(primary);
             }
         });
+    }
 
-        viewModel.getResult().observe(this, result -> {
-            ingredientRVAdapter.setIngredients(result);
-        });
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit();
     }
 }
