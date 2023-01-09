@@ -22,8 +22,8 @@ public class BlogSearchResultFragment extends Fragment {
     private View mView;
     private BlogRVAdapter mRVAdapter;
 
-    public static RecipeSearchResultFragment newInstance() {
-        return new RecipeSearchResultFragment();
+    public static BlogSearchResultFragment newInstance() {
+        return new BlogSearchResultFragment();
     }
 
     @Override

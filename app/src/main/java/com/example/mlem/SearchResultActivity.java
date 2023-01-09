@@ -1,8 +1,12 @@
 package com.example.mlem;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -31,6 +35,17 @@ public class SearchResultActivity extends AppCompatActivity {
 
         initListeners();
         initObservers();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.searchBar);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search...");
+
+        return true;
     }
 
     private void initListeners() {
