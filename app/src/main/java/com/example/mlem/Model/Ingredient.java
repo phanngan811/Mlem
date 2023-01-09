@@ -1,16 +1,21 @@
 package com.example.mlem.Model;
 
+import java.util.List;
+
 public class Ingredient {
     private String id;
     private String name;
     private Double price;
-    private String tagId;
+    private List<String> tagNames;
 
-    public Ingredient(String id, String name, Double price, String tagId) {
+    public Ingredient() {
+    }
+
+    public Ingredient(String id, String name, Double price, List<String> tagNames) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.tagId = tagId;
+        this.tagNames = tagNames;
     }
 
     public String getId() {
@@ -37,11 +42,11 @@ public class Ingredient {
         this.price = price;
     }
 
-    public String getTagId() {
-        return tagId;
+    public List<String> getTagNames() {
+        return tagNames;
     }
 
-    public void setTagId(String tagId) {
-        this.tagId = tagId;
+    public void setTagNames(List<String> tagNames) {
+        this.tagNames = tagNames;
     }
 }

@@ -1,14 +1,21 @@
 package com.example.mlem.Model;
 
+import java.util.List;
+
 public class Recipe {
     private String id;
-    private String[] ingredientIds;
-    private String tagId;
+    private String name;
+    private List<String> ingredientIds;
+    private List<String> tagNames;
 
-    public Recipe(String id, String[] ingredientIds, String tagId) {
+    public Recipe() {
+    }
+
+    public Recipe(String id, String name, List<String> ingredientIds, List<String> tagNames) {
         this.id = id;
+        this.name = name;
         this.ingredientIds = ingredientIds;
-        this.tagId = tagId;
+        this.tagNames = tagNames;
     }
 
     public String getId() {
@@ -19,19 +26,27 @@ public class Recipe {
         this.id = id;
     }
 
-    public String[] getIngredientIds() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getIngredientIds() {
         return ingredientIds;
     }
 
-    public void setIngredientIds(String[] ingredientIds) {
+    public void setIngredientIds(List<String> ingredientIds) {
         this.ingredientIds = ingredientIds;
     }
 
-    public String getTagId() {
-        return tagId;
+    public List<String> getTagNames() {
+        return tagNames;
     }
 
-    public void setTagId(String tagId) {
-        this.tagId = tagId;
+    public void setTagNames(List<String> tagNames) {
+        this.tagNames = tagNames;
     }
 }

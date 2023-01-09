@@ -11,7 +11,6 @@ import com.example.mlem.Repository.UserRepository;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginViewModel extends AndroidViewModel {
     private final UserRepository repository;
@@ -23,10 +22,6 @@ public class LoginViewModel extends AndroidViewModel {
         repository = new UserRepository();
         loginSuccess = new MutableLiveData<>();
         errorMessage = new MutableLiveData<>();
-    }
-
-    public FirebaseUser getUser() {
-        return repository.getUser();
     }
 
     public void login(String email, String password) {
