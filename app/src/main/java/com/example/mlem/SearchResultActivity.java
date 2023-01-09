@@ -51,6 +51,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         mViewModel.getSearchType().observe(this, searchType -> {
             if (searchType == SearchType.RECIPE) {
+                replaceFragment(new RecipeSearchResultFragment());
                 mBinding.btnTypeRecipe.setBackgroundColor(primary);
                 mBinding.btnTypeBlog.setBackgroundColor(neutral);
                 mBinding.btnTypeIngredient.setBackgroundColor(neutral);
