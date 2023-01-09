@@ -12,6 +12,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mlem.Enum.SearchType;
@@ -21,6 +23,7 @@ import com.example.mlem.databinding.ActivitySearchResultBinding;
 public class SearchResultActivity extends AppCompatActivity {
     private ActivitySearchResultBinding mBinding;
     private SearchResultViewModel mViewModel;
+    private MutableLiveData<String> searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class SearchResultActivity extends AppCompatActivity {
         mBinding = ActivitySearchResultBinding.inflate(getLayoutInflater());
         View view = mBinding.getRoot();
         setContentView(view);
+
+        searchQuery = new MutableLiveData<>();
 
         replaceFragment(new IngredientSearchResultFragment());
 
@@ -44,8 +49,25 @@ public class SearchResultActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.searchBar);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("Search...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchQuery.setValue(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchQuery.setValue(s);
+                return false;
+            }
+        });
 
         return true;
+    }
+
+    public LiveData<String> getSearchQuery() {
+        return searchQuery;
     }
 
     private void initListeners() {

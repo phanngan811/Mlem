@@ -21,6 +21,7 @@ public class IngredientSearchResultFragment extends Fragment {
     private FragmentIngredientSearchResultBinding mBinding;
     private View mView;
     private IngredientRVAdapter mRVAdapter;
+    private SearchResultActivity mSearchResultActivity;
 
     public static IngredientSearchResultFragment newInstance() {
         return new IngredientSearchResultFragment();
@@ -31,11 +32,10 @@ public class IngredientSearchResultFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentIngredientSearchResultBinding.inflate(inflater, container, false);
         mView = mBinding.getRoot();
+        mSearchResultActivity = (SearchResultActivity) getActivity();
 
         initAdapters();
         initObservers();
-
-        mViewModel.search("egg");
 
         return mView;
     }
@@ -49,6 +49,9 @@ public class IngredientSearchResultFragment extends Fragment {
     private void initObservers() {
         mViewModel.getResult().observe(getViewLifecycleOwner(), result -> {
             mRVAdapter.setIngredients(result);
+        });
+        mSearchResultActivity.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
+            mViewModel.search(s);
         });
     }
 

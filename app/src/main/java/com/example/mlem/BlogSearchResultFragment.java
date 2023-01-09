@@ -21,6 +21,7 @@ public class BlogSearchResultFragment extends Fragment {
     private FragmentBlogSearchResultBinding mBinding;
     private View mView;
     private BlogRVAdapter mRVAdapter;
+    private SearchResultActivity mSearchResultActivity;
 
     public static BlogSearchResultFragment newInstance() {
         return new BlogSearchResultFragment();
@@ -31,11 +32,10 @@ public class BlogSearchResultFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentBlogSearchResultBinding.inflate(inflater, container, false);
         mView = mBinding.getRoot();
+        mSearchResultActivity = (SearchResultActivity) getActivity();
 
         initAdapters();
         initObservers();
-
-        mViewModel.search("blog 1");
 
         return mView;
     }
@@ -49,6 +49,9 @@ public class BlogSearchResultFragment extends Fragment {
     private void initObservers() {
         mViewModel.getResult().observe(getViewLifecycleOwner(), result -> {
             mRVAdapter.setBlogs(result);
+        });
+        mSearchResultActivity.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
+            mViewModel.search(s);
         });
     }
 

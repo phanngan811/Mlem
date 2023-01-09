@@ -21,6 +21,7 @@ public class RecipeSearchResultFragment extends Fragment {
     private FragmentRecipeSearchResultBinding mBinding;
     private View mView;
     private RecipeRVAdapter mRVAdapter;
+    private SearchResultActivity mSearchResultActivity;
 
     public static RecipeSearchResultFragment newInstance() {
         return new RecipeSearchResultFragment();
@@ -30,11 +31,10 @@ public class RecipeSearchResultFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentRecipeSearchResultBinding.inflate(inflater, container, false);
         mView = mBinding.getRoot();
+        mSearchResultActivity = (SearchResultActivity) getActivity();
 
         initAdapters();
         initObservers();
-
-        mViewModel.search("recipe 1");
 
         return mView;
     }
@@ -48,6 +48,9 @@ public class RecipeSearchResultFragment extends Fragment {
     private void initObservers() {
         mViewModel.getResult().observe(getViewLifecycleOwner(), result -> {
             mRVAdapter.setRecipes(result);
+        });
+        mSearchResultActivity.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
+            mViewModel.search(s);
         });
     }
 
