@@ -55,6 +55,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 mBinding.btnTypeBlog.setBackgroundColor(neutral);
                 mBinding.btnTypeIngredient.setBackgroundColor(neutral);
             } else if (searchType == SearchType.BLOG) {
+                replaceFragment(new BlogSearchResultFragment());
                 mBinding.btnTypeRecipe.setBackgroundColor(neutral);
                 mBinding.btnTypeBlog.setBackgroundColor(primary);
                 mBinding.btnTypeIngredient.setBackgroundColor(neutral);

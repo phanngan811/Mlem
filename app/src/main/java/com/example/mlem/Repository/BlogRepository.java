@@ -60,6 +60,6 @@ public class BlogRepository {
     }
 
     public Task<QuerySnapshot> search(String queryString) {
-        return collectionReference.whereEqualTo("name", queryString).get();
+        return collectionReference.whereEqualTo("title", queryString).get();
     }
 }
