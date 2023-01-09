@@ -1,23 +1,18 @@
 package com.example.mlem;
 
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.mlem.Adapter.IngredientRVAdapter;
-import com.example.mlem.Enum.SearchType;
 import com.example.mlem.ViewModel.IngredientSearchResultVM;
-import com.example.mlem.ViewModel.SearchResultViewModel;
 import com.example.mlem.databinding.FragmentIngredientSearchResultBinding;
 
 public class IngredientSearchResultFragment extends Fragment {

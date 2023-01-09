@@ -7,19 +7,19 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.mlem.ViewModel.UserViewModel;
+import com.example.mlem.ViewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
-    UserViewModel userViewModel;
+    MainViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        if (userViewModel.getUser() != null) {
+        if (mViewModel.getUser() != null) {
             goToDashboard();
         }
 
