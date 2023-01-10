@@ -2,26 +2,11 @@ package com.example.mlem.Repository;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.mlem.Model.Ingredient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class IngredientRepository {
     private static final String TAG = IngredientRepository.class.getName();
@@ -53,9 +38,19 @@ public class IngredientRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting", e));
     }
 
-    public Task<DocumentSnapshot> getOne(String id) {
-        return collectionReference.document(id).get();
-
+    public Ingredient getOne(String id) {
+        final Ingredient[] ingredient = {new Ingredient()};
+        collectionReference.document(id).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    Ingredient item = documentSnapshot.toObject(Ingredient.class);
+                    if (item == null) return;
+                    item.setId(documentSnapshot.getId());
+                    ingredient[0] = item;
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting " + id, e);
+                });
+        return ingredient[0];
     }
 
     public Task<QuerySnapshot> getAll() {

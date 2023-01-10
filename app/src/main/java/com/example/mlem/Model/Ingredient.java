@@ -49,4 +49,14 @@ public class Ingredient {
     public void setTagNames(List<String> tagNames) {
         this.tagNames = tagNames;
     }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", tagNames=" + tagNames +
+                '}';
+    }
 }
