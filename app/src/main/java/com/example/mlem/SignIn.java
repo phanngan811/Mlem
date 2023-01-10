@@ -18,7 +18,6 @@ public class SignIn extends AppCompatActivity {
         EditText editTextUsername = (EditText) findViewById(R.id.editUsername);
         EditText editTextPassword = (EditText) findViewById(R.id.editPassword);
         TextView txtError = (TextView) findViewById(R.id.txtError);
-
         if(editTextUsername.getText().toString().equals("") || editTextPassword.getText().toString().equals("")){
             txtError.setText("Username or password is wrong");
         }

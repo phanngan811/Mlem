@@ -27,5 +27,6 @@ public class RecipeDetail extends AppCompatActivity {
         lvDirection = findViewById(R.id.lvDirection);
         DirectionAdapter directionAdapter = new DirectionAdapter(this, stepDirection, desDirection);
         lvDirection.setAdapter(directionAdapter);
+        
     }
 }

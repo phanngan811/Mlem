@@ -7,16 +7,21 @@
     android:orientation="vertical"
     tools:context=".RecipeDetail">
 
-
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/mlemmm" />
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="100pt"
+            app:srcCompat="@drawable/mlemmm" />
+
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -129,11 +134,11 @@
         android:text="Ingredients" />
 
 
-    <ListView
-        android:id="@+id/lvIngredient"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        <ListView
+            android:id="@+id/lvIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
     <TextView
         android:id="@+id/textView12"
@@ -145,11 +150,10 @@
         android:textColor="@color/black"
         android:text="Directions" />
 
-    <ListView
-        android:id="@+id/lvDirection"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        <ListView
+            android:id="@+id/lvDirection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     <Button
@@ -159,6 +163,9 @@
         android:layout_marginRight="10pt"
         android:layout_marginLeft="10pt"
         android:text="Button" />
+    </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>
