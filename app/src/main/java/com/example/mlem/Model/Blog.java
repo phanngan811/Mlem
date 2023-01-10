@@ -57,5 +57,16 @@ public class Blog {
     public void setRecipeId(String recipeId) {
         this.recipeId = recipeId;
     }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", recipeId='" + recipeId + '\'' +
+                '}';
+    }
 }
 
