@@ -2,24 +2,11 @@ package com.example.mlem.Repository;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.mlem.Model.Blog;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlogRepository {
     private static final String TAG = BlogRepository.class.getName();
@@ -51,8 +38,19 @@ public class BlogRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting", e));
     }
 
-    public Task<DocumentSnapshot> getOne(String id) {
-        return collectionReference.document(id).get();
+    public Blog getOne(String id) {
+        final Blog[] blog = {new Blog()};
+        collectionReference.document(id).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    Blog item = documentSnapshot.toObject(Blog.class);
+                    if (item == null) return;
+                    item.setId(documentSnapshot.getId());
+                    blog[0] = item;
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting one " + id, e);
+                });
+        return blog[0];
     }
 
     public Task<QuerySnapshot> getAll() {
