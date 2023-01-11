@@ -30,22 +30,20 @@ public class BlogSearchResultVM extends AndroidViewModel {
     public void search(String query, SearchByType type) {
         if (type == SearchByType.NAME) {
             blogRepository.searchByTitle(query).addOnSuccessListener(queryDocumentSnapshots -> {
-                List<Blog> list = this.result.getValue();
+                List<Blog> list = new ArrayList<>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Blog item = document.toObject(Blog.class);
                     item.setId(document.getId());
-                    assert list != null;
                     list.add(item);
                 }
                 this.result.setValue(list);
             });
         } else {
             blogRepository.searchByTag(query).addOnSuccessListener(queryDocumentSnapshots -> {
-                List<Blog> list = this.result.getValue();
+                List<Blog> list = new ArrayList<>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Blog item = document.toObject(Blog.class);
                     item.setId(document.getId());
-                    assert list != null;
                     list.add(item);
                 }
                 this.result.setValue(list);

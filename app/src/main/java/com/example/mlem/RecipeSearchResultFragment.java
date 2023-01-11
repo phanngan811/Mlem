@@ -50,7 +50,10 @@ public class RecipeSearchResultFragment extends Fragment {
             mRVAdapter.setRecipes(result);
         });
         mSearchResultActivity.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
-            mViewModel.search(s);
+            mViewModel.search(s, mSearchResultActivity.getSearchByType().getValue());
+        });
+        mSearchResultActivity.getSearchByType().observe(getViewLifecycleOwner(), t -> {
+            mViewModel.search(mSearchResultActivity.getSearchQuery().getValue(), t);
         });
     }
 
