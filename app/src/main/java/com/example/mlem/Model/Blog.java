@@ -69,5 +69,16 @@ public class Blog {
     public void setTagNames(List<String> tagNames) {
         this.tagNames = tagNames;
     }
+    
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", recipeId='" + recipeId + '\'' +
+                '}';
+    }
 }
 

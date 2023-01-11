@@ -1,5 +1,8 @@
 package com.example.mlem.Model;
 
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
@@ -7,6 +10,7 @@ public class Recipe {
     private String name;
     private List<String> ingredientIds;
     private List<String> tagNames;
+    private List<Ingredient> ingredients;
 
     public Recipe() {
     }
@@ -16,6 +20,7 @@ public class Recipe {
         this.name = name;
         this.ingredientIds = ingredientIds;
         this.tagNames = tagNames;
+        this.ingredients = new ArrayList<>();
     }
 
     public String getId() {
@@ -48,5 +53,25 @@ public class Recipe {
 
     public void setTagNames(List<String> tagNames) {
         this.tagNames = tagNames;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", ingredientIds=" + ingredientIds +
+                ", tagNames=" + tagNames +
+                ", ingredients=" + ingredients +
+                '}';
     }
 }

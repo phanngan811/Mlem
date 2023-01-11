@@ -11,6 +11,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Arrays;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class IngredientRepository {
     private static final String TAG = IngredientRepository.class.getName();
     private static final String collectionPath = "ingredients";
@@ -41,8 +44,19 @@ public class IngredientRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting", e));
     }
 
-    public Task<DocumentSnapshot> getOne(String id) {
-        return collectionReference.document(id).get();
+    public Ingredient getOne(String id) {
+        final Ingredient[] ingredient = {new Ingredient()};
+        collectionReference.document(id).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    Ingredient item = documentSnapshot.toObject(Ingredient.class);
+                    if (item == null) return;
+                    item.setId(documentSnapshot.getId());
+                    ingredient[0] = item;
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting " + id, e);
+                });
+        return ingredient[0];
     }
 
     public Task<QuerySnapshot> getAll() {

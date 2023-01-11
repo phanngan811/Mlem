@@ -11,6 +11,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Arrays;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class BlogRepository {
     private static final String TAG = BlogRepository.class.getName();
     private static final String collectionPath = "blogs";
@@ -41,8 +44,19 @@ public class BlogRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting", e));
     }
 
-    public Task<DocumentSnapshot> getOne(String id) {
-        return collectionReference.document(id).get();
+    public Blog getOne(String id) {
+        final Blog[] blog = {new Blog()};
+        collectionReference.document(id).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    Blog item = documentSnapshot.toObject(Blog.class);
+                    if (item == null) return;
+                    item.setId(documentSnapshot.getId());
+                    blog[0] = item;
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting one " + id, e);
+                });
+        return blog[0];
     }
 
     public Task<QuerySnapshot> getAll() {
