@@ -1,13 +1,13 @@
 package com.example.mlem.ViewModel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.mlem.Enum.SearchByType;
 import com.example.mlem.Model.Blog;
 import com.example.mlem.Repository.BlogRepository;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,23 +24,33 @@ public class BlogSearchResultVM extends AndroidViewModel {
     public BlogSearchResultVM(@NonNull Application application) {
         super(application);
         blogRepository = new BlogRepository();
-        result = new MutableLiveData<>();
+        result = new MutableLiveData<>(new ArrayList<>());
     }
 
-    public void search(String query) {
-        blogRepository.search(query).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<Blog> list = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
+    public void search(String query, SearchByType type) {
+        if (type == SearchByType.NAME) {
+            blogRepository.searchByTitle(query).addOnSuccessListener(queryDocumentSnapshots -> {
+                List<Blog> list = this.result.getValue();
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Blog item = document.toObject(Blog.class);
                     item.setId(document.getId());
+                    assert list != null;
                     list.add(item);
                 }
-                result.setValue(list);
-            } else {
-                Log.e(TAG, "Error searching", task.getException());
-            }
-        });
+                this.result.setValue(list);
+            });
+        } else {
+            blogRepository.searchByTag(query).addOnSuccessListener(queryDocumentSnapshots -> {
+                List<Blog> list = this.result.getValue();
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    Blog item = document.toObject(Blog.class);
+                    item.setId(document.getId());
+                    assert list != null;
+                    list.add(item);
+                }
+                this.result.setValue(list);
+            });
+        }
     }
 
     public LiveData<List<Blog>> getResult() {

@@ -9,16 +9,34 @@
     tools:context=".SearchResultActivity">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search by"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinnerSearchBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginVertical="5dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnTypeBlog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:text="Blog" />
 
@@ -33,7 +51,7 @@
             android:id="@+id/btnTypeRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:text="Recipe" />
     </LinearLayout>
