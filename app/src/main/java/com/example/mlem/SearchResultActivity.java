@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,14 +18,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mlem.Enum.SearchByType;
 import com.example.mlem.Enum.SearchType;
 import com.example.mlem.ViewModel.SearchResultViewModel;
 import com.example.mlem.databinding.ActivitySearchResultBinding;
 
-public class SearchResultActivity extends AppCompatActivity {
+public class SearchResultActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private ActivitySearchResultBinding mBinding;
     private SearchResultViewModel mViewModel;
+
     private MutableLiveData<String> searchQuery;
+    private MutableLiveData<SearchByType> searchByType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +38,18 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(view);
 
         searchQuery = new MutableLiveData<>();
+        searchByType = new MutableLiveData<>();
 
         replaceFragment(new IngredientSearchResultFragment());
-
         mViewModel = new ViewModelProvider(this).get(SearchResultViewModel.class);
 
         initListeners();
         initObservers();
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.search_by_type_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mBinding.spinnerSearchBy.setAdapter(adapter);
+        mBinding.spinnerSearchBy.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -52,13 +62,13 @@ public class SearchResultActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                searchQuery.setValue(s);
+                setSearchQuery(s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                searchQuery.setValue(s);
+                setSearchQuery(s);
                 return false;
             }
         });
@@ -68,6 +78,18 @@ public class SearchResultActivity extends AppCompatActivity {
 
     public LiveData<String> getSearchQuery() {
         return searchQuery;
+    }
+
+    private void setSearchQuery(String searchQuery) {
+        this.searchQuery.setValue(searchQuery);
+    }
+
+    public LiveData<SearchByType> getSearchByType() {
+        return searchByType;
+    }
+
+    private void setSearchByType(SearchByType searchByType) {
+        this.searchByType.setValue(searchByType);
     }
 
     private void initListeners() {
@@ -111,5 +133,19 @@ public class SearchResultActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        int searchByType = adapterView.getSelectedItemPosition();
+        if (searchByType == 0) {
+            setSearchByType(SearchByType.NAME);
+        } else {
+            setSearchByType(SearchByType.TAG);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
     }
 }

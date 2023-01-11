@@ -8,6 +8,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.mlem.Enum.SearchByType;
+import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Model.Recipe;
 import com.example.mlem.Repository.RecipeRepository;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -27,20 +29,28 @@ public class RecipeSearchResultVM extends AndroidViewModel {
         result = new MutableLiveData<>();
     }
 
-    public void search(String query) {
-        recipeRepository.search(query).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+    public void search(String query, SearchByType type) {
+        if (type == SearchByType.NAME) {
+            recipeRepository.searchByName(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Recipe> list = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Recipe item = document.toObject(Recipe.class);
                     item.setId(document.getId());
                     list.add(item);
                 }
-                result.setValue(list);
-            } else {
-                Log.e(TAG, "Error searching", task.getException());
-            }
-        });
+                this.result.setValue(list);
+            });
+        } else {
+            recipeRepository.searchByTag(query).addOnSuccessListener(queryDocumentSnapshots -> {
+                List<Recipe> list = new ArrayList<>();
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    Recipe item = document.toObject(Recipe.class);
+                    item.setId(document.getId());
+                    list.add(item);
+                }
+                this.result.setValue(list);
+            });
+        }
     }
 
     public LiveData<List<Recipe>> getResult() {

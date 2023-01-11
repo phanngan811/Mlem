@@ -10,6 +10,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -79,7 +80,15 @@ public class RecipeRepository {
         return collectionReference.get();
     }
 
-    public Task<QuerySnapshot> search(String queryString) {
+    public Task<QuerySnapshot> searchByName(String queryString) {
         return collectionReference.whereEqualTo("name", queryString).get();
+    }
+
+    public Task<QuerySnapshot> searchByTag(String queryString) {
+        if (queryString == null) {
+            return getAll();
+        }
+        String[] queryList = queryString.split("\\s+");
+        return collectionReference.whereArrayContainsAny("tagNames", Arrays.asList(queryList)).get();
     }
 }

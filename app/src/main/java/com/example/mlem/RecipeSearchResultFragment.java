@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.mlem.Adapter.RecipeRVAdapter;
 import com.example.mlem.ViewModel.RecipeSearchResultVM;
@@ -50,13 +50,16 @@ public class RecipeSearchResultFragment extends Fragment {
             mRVAdapter.setRecipes(result);
         });
         mSearchResultActivity.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
-            mViewModel.search(s);
+            mViewModel.search(s, mSearchResultActivity.getSearchByType().getValue());
+        });
+        mSearchResultActivity.getSearchByType().observe(getViewLifecycleOwner(), t -> {
+            mViewModel.search(mSearchResultActivity.getSearchQuery().getValue(), t);
         });
     }
 
     private void initAdapters() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mView.getContext());
-        mBinding.rvResult.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mView.getContext(), 2);
+        mBinding.rvResult.setLayoutManager(gridLayoutManager);
         mRVAdapter = new RecipeRVAdapter();
         mBinding.rvResult.setAdapter(mRVAdapter);
     }

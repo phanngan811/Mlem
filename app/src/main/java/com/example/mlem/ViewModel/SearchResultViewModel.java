@@ -10,23 +10,15 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.mlem.Enum.SearchType;
 
 public class SearchResultViewModel extends AndroidViewModel {
-    private MutableLiveData<SearchType> searchType;
-    private MutableLiveData<String> searchQuery;
+    private final MutableLiveData<SearchType> searchType;
 
     public SearchResultViewModel(@NonNull Application application) {
         super(application);
-        searchQuery = new MutableLiveData<>();
-        searchQuery.setValue("");
-        searchType = new MutableLiveData<>();
-        searchType.setValue(SearchType.INGREDIENT);
+        searchType = new MutableLiveData<>(SearchType.INGREDIENT);
     }
 
     public void changeSearchType(SearchType searchType) {
         this.searchType.setValue(searchType);
-    }
-
-    public LiveData<String> getSearchQuery() {
-        return searchQuery;
     }
 
     public LiveData<SearchType> getSearchType() {

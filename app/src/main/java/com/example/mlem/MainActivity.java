@@ -7,6 +7,11 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mlem.Model.Blog;
+import com.example.mlem.Model.Ingredient;
+import com.example.mlem.Model.Recipe;
+import com.example.mlem.Repository.BlogRepository;
+import com.example.mlem.Repository.RecipeRepository;
 import com.example.mlem.ViewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToDashboard() {
-        Intent intent = new Intent(MainActivity.this, DashBoard.class);
+        Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
