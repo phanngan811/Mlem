@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.R;
+import com.example.mlem.helper.Helper;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -49,7 +50,7 @@ public class DashboardIngredientRVAdapter extends RecyclerView.Adapter<Dashboard
         holder.name.setText(ingredientData.getName());
         Locale locale = new Locale("en", "US");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        holder.price.setText(currencyFormatter.format(ingredientData.getPrice()));
+        holder.price.setText(Helper.CurrencyFormatter(ingredientData.getPrice()));
         if(ingredientData.getImageUrl() != null){
             ImageView imgView = (ImageView) holder.image;
             Picasso.get().load(ingredientData.getImageUrl()).into(imgView);
