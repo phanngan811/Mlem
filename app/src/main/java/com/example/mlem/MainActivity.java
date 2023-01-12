@@ -1,7 +1,10 @@
 package com.example.mlem;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         if (mViewModel.getUser() != null) {
+            System.out.println("----GOT here------");
+            Log.d(TAG, "----GOT here------");
             goToDashboard();
         }
 
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToDashboard() {
-        Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+        Intent intent = new Intent(MainActivity.this, DashBoard.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

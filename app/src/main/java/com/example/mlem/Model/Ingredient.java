@@ -8,6 +8,7 @@ public class Ingredient {
     private String id;
     private String name;
     private Double price;
+    private String imageUrl;
     private List<String> tagNames;
     private String imageUrl;
     private String unit;
@@ -16,6 +17,7 @@ public class Ingredient {
     }
 
     public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl, String unit) {
+
         this.id = id;
         this.name = name;
         this.price = price;
