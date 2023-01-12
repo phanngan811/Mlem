@@ -41,14 +41,13 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imgTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         app:srcCompat="@drawable/ic_clock" />
 
                     <TextView
-                        android:id="@+id/txtTime"
+                        android:id="@+id/tvTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10 m"
@@ -62,14 +61,13 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imgEasy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         app:srcCompat="@drawable/ic_speed" />
 
                     <TextView
-                        android:id="@+id/txtEasy"
+                        android:id="@+id/tvDifficulty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Easy"
@@ -84,14 +82,13 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imageView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         app:srcCompat="@drawable/ic_star" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tvRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5/5"

@@ -26,12 +26,13 @@ public class RecipeDetail extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        // get id from intent from the recycler view adapter
         Intent intent = getIntent();
-        String id = intent.getStringExtra("recipeId");
+        String recipeId = intent.getStringExtra("recipeId");
 
         mViewModel = new ViewModelProvider(this).get(RecipeDetailVM.class);
 
-        mViewModel.setId("IJ1gDWZZ0hT4Sz8OEapH");
+        mViewModel.setId(recipeId);
         mViewModel.getOne();
 
         initListeners();
@@ -49,6 +50,9 @@ public class RecipeDetail extends AppCompatActivity {
     private void initObservers() {
         mViewModel.getRecipe().observe(this, recipe -> {
             mBinding.tvTitle.setText(recipe.getName());
+            mBinding.tvTime.setText(recipe.getDuration());
+            mBinding.tvDifficulty.setText(recipe.getDifficulty());
+            mBinding.tvRating.setText(String.valueOf(recipe.getRating()));
             if (recipe.getCartItems() != null) {
                 mIngredientRVAdapter.setCartItems(recipe.getCartItems());
             }

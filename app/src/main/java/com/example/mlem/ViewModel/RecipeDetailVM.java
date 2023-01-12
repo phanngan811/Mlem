@@ -34,6 +34,7 @@ public class RecipeDetailVM extends AndroidViewModel {
     }
 
     public void getOne() {
+        if (id.getValue() == null) return;
         recipeRepository.getOne(id.getValue()).addOnSuccessListener(snapshot -> {
             Recipe recipe = snapshot.toObject(Recipe.class);
             if (recipe == null) return;

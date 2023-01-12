@@ -5,14 +5,14 @@ import androidx.annotation.NonNull;
 public class CartItem {
     private String id;
     private String ingredientId;
-    private double amount;
+    private Double amount;
     private String userId;
     private Ingredient ingredient;
 
     public CartItem() {
     }
 
-    public CartItem(String id, String ingredientId, double amount, String userId, Ingredient ingredient) {
+    public CartItem(String id, String ingredientId, Double amount, String userId, Ingredient ingredient) {
         this.id = id;
         this.ingredientId = ingredientId;
         this.amount = amount;
@@ -36,11 +36,11 @@ public class CartItem {
         this.ingredientId = ingredientId;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
