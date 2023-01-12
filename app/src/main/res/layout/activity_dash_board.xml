@@ -47,7 +47,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idCourseRV"
+        android:id="@+id/idIngredientRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

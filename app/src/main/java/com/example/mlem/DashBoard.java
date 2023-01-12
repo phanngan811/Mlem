@@ -1,36 +1,42 @@
 package com.example.mlem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.mlem.Adapter.RecyclerViewAdapter;
+import com.example.mlem.Model.Ingredient;
+import com.example.mlem.ViewModel.DashboardVM;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class DashBoard extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<IngredientData> ingredientDataArrayList;
+    DashboardVM mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
-        recyclerView=findViewById(R.id.idCourseRV);
+        mViewModel = new ViewModelProvider(this).get(DashboardVM.class);
+        recyclerView=findViewById(R.id.idIngredientRV);
 
-        // created new array list..
-        ingredientDataArrayList =new ArrayList<>();
-
-        // added data to array list
-        ingredientDataArrayList.add(new IngredientData("DSA",R.drawable.mlemmm));
-        ingredientDataArrayList.add(new IngredientData("JAVA",R.drawable.mlemmm));
-        ingredientDataArrayList.add(new IngredientData("C++",R.drawable.mlemmm));
-        ingredientDataArrayList.add(new IngredientData("Python",R.drawable.mlemmm));
-        ingredientDataArrayList.add(new IngredientData("Node Js",R.drawable.mlemmm));
-
-        // added data from arraylist to adapter class.
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(ingredientDataArrayList,this);
+       // added data from arraylist to adapter class.
+        mViewModel.getIngredients();
+        RecyclerViewAdapter adapter=new RecyclerViewAdapter(this);
+        mViewModel.getResult().observe(this, new Observer<List<Ingredient>>() {
+            @Override
+            public void onChanged(List<Ingredient> ingredients) {
+                adapter.setIngredientDataArrayList((ArrayList<Ingredient>) ingredients);
+            }
+        });
 
         // setting grid layout manager to implement grid view.
         // in this method '2' represents number of columns to be displayed in grid view.
@@ -39,5 +45,6 @@ public class DashBoard extends AppCompatActivity {
         // at last set adapter to recycler view.
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
     }
 }
