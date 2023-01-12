@@ -28,7 +28,7 @@ public class IngredientSearchResultVM extends AndroidViewModel {
     }
 
     public void search(String query, SearchByType type) {
-        if (type == SearchByType.NAME) {
+        if (type == SearchByType.NAME) {    
             ingredientRepository.searchByName(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Ingredient> list = new ArrayList<>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
