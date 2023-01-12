@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.mlem.Adapter.RecyclerViewAdapter;
+import com.example.mlem.Adapter.DashboardIngredientRVAdapter;
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.ViewModel.DashboardVM;
 
@@ -30,7 +30,7 @@ public class DashBoard extends AppCompatActivity {
 
        // added data from arraylist to adapter class.
         mViewModel.getIngredients();
-        RecyclerViewAdapter adapter=new RecyclerViewAdapter(this);
+        DashboardIngredientRVAdapter adapter=new DashboardIngredientRVAdapter(this);
         mViewModel.getResult().observe(this, new Observer<List<Ingredient>>() {
             @Override
             public void onChanged(List<Ingredient> ingredients) {

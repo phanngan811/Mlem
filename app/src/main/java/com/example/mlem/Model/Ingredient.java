@@ -6,16 +6,18 @@ public class Ingredient {
     private String id;
     private String name;
     private Double price;
+    private String imageUrl;
     private List<String> tagNames;
 
     public Ingredient() {
     }
 
-    public Ingredient(String id, String name, Double price, List<String> tagNames) {
+    public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.tagNames = tagNames;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -48,6 +50,14 @@ public class Ingredient {
 
     public void setTagNames(List<String> tagNames) {
         this.tagNames = tagNames;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
