@@ -2,7 +2,6 @@ package com.example.mlem.Repository;
 
 import android.util.Log;
 
-import com.example.mlem.Model.Blog;
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Model.Recipe;
 import com.google.android.gms.tasks.Task;
@@ -28,20 +27,20 @@ public class RecipeRepository {
         ingredientRepository = new IngredientRepository();
     }
 
-    public void insert(Blog blog) {
-        collectionReference.add(blog)
+    public void insert(Recipe recipe) {
+        collectionReference.add(recipe)
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "Added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding", e));
     }
 
-    public void update(Blog blog) {
-        collectionReference.document(blog.getId()).set(blog)
+    public void update(Recipe recipe) {
+        collectionReference.document(recipe.getId()).set(recipe)
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Updated successfully"))
                 .addOnFailureListener(e -> Log.w(TAG, "Error updating", e));
     }
 
-    public void delete(Blog blog) {
-        collectionReference.document(blog.getId()).delete()
+    public void delete(Recipe recipe) {
+        collectionReference.document(recipe.getId()).delete()
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Deleted successfully"))
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting", e));
     }
@@ -51,7 +50,6 @@ public class RecipeRepository {
 
         collectionReference.document(id).get()
                 .addOnSuccessListener(document -> {
-                    System.out.println(document);
                     Recipe item = document.toObject(Recipe.class);
                     if (item == null) return;
                     item.setId(document.getId());
@@ -60,9 +58,12 @@ public class RecipeRepository {
 
                     // get ingredient for each ingredient id
                     for (String ingredientId : item.getIngredientIds()) {
-                        Ingredient ingredient = ingredientRepository.getOne(ingredientId);
-                        if (ingredient == null) continue;
-                        list.add(ingredient);
+                        ingredientRepository.getOne(ingredientId).addOnSuccessListener(document1 -> {
+                            Ingredient item1 = document.toObject(Ingredient.class);
+                            if (item1 == null) return;
+                            item1.setId(document.getId());
+                            list.add(item1);
+                        });
                     }
 
                     item.setIngredients(list);

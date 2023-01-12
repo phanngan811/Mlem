@@ -2,7 +2,6 @@ package com.example.mlem.Model;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
@@ -10,17 +9,21 @@ public class Recipe {
     private String name;
     private List<String> ingredientIds;
     private List<String> tagNames;
+    private List<String> steps;
     private List<Ingredient> ingredients;
+    private String imageUrl;
 
     public Recipe() {
     }
 
-    public Recipe(String id, String name, List<String> ingredientIds, List<String> tagNames) {
+    public Recipe(String id, String name, List<String> ingredientIds, List<String> tagNames, List<String> steps, List<Ingredient> ingredients, String imageUrl) {
         this.id = id;
         this.name = name;
         this.ingredientIds = ingredientIds;
         this.tagNames = tagNames;
-        this.ingredients = new ArrayList<>();
+        this.steps = steps;
+        this.ingredients = ingredients;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -55,12 +58,28 @@ public class Recipe {
         this.tagNames = tagNames;
     }
 
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
+    }
+
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @NonNull
@@ -71,7 +90,9 @@ public class Recipe {
                 ", name='" + name + '\'' +
                 ", ingredientIds=" + ingredientIds +
                 ", tagNames=" + tagNames +
+                ", steps=" + steps +
                 ", ingredients=" + ingredients +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }
