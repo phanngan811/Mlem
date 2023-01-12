@@ -10,16 +10,18 @@ public class Ingredient {
     private Double price;
     private List<String> tagNames;
     private String imageUrl;
+    private String unit;
 
     public Ingredient() {
     }
 
-    public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl) {
+    public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl, String unit) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.tagNames = tagNames;
         this.imageUrl = imageUrl;
+        this.unit = unit;
     }
 
     public String getId() {
@@ -62,6 +64,14 @@ public class Ingredient {
         this.imageUrl = imageUrl;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -71,6 +81,7 @@ public class Ingredient {
                 ", price=" + price +
                 ", tagNames=" + tagNames +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", unit='" + unit + '\'' +
                 '}';
     }
 }

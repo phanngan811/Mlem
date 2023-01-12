@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderSummaryVM extends AndroidViewModel {
     private static final String TAG = OrderSummaryVM.class.getName();
@@ -25,6 +26,7 @@ public class OrderSummaryVM extends AndroidViewModel {
     private final UserRepository userRepository;
     private final IngredientRepository ingredientRepository;
     private final MutableLiveData<List<CartItem>> result;
+    private final MutableLiveData<Double> total;
 
     public OrderSummaryVM(@NonNull Application application) {
         super(application);
@@ -32,6 +34,7 @@ public class OrderSummaryVM extends AndroidViewModel {
         userRepository = new UserRepository();
         ingredientRepository = new IngredientRepository();
         result = new MutableLiveData<>(new ArrayList<>());
+        total = new MutableLiveData<>((double) 0);
     }
 
     public void getCart() {
@@ -60,12 +63,24 @@ public class OrderSummaryVM extends AndroidViewModel {
                     cartItems.add(cartItem);
 
                     result.setValue(cartItems);
+                    calcTotal();
                 });
             }
         });
     }
 
+    private void calcTotal() {
+        double total = 0;
+        for (CartItem cartItem : Objects.requireNonNull(result.getValue())) {
+            total += cartItem.getIngredient().getPrice() * cartItem.getAmount();
+        }
+        this.total.setValue(total);
+    }
+
     public LiveData<List<CartItem>> getResult() {
         return result;
+    }
+    public LiveData<Double> getTotal() {
+        return total;
     }
 }
