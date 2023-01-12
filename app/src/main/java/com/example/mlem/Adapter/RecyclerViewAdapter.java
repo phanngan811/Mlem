@@ -1,4 +1,4 @@
-package com.example.mlem;
+package com.example.mlem.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,15 +8,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mlem.Model.Ingredient;
+import com.example.mlem.R;
+
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
-    private ArrayList<IngredientData> ingredientDataArrayList;
+    private ArrayList<Ingredient> ingredientDataArrayList;
     private Context mcontext;
 
-    public RecyclerViewAdapter(ArrayList<IngredientData> ingredientDataArrayList, Context mcontext) {
-        this.ingredientDataArrayList = ingredientDataArrayList;
+    public RecyclerViewAdapter(Context mcontext) {
+        ingredientDataArrayList = new ArrayList<>();
         this.mcontext = mcontext;
     }
 
@@ -31,9 +35,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         // Set the data to textview and imageview.
-        IngredientData ingredientData = ingredientDataArrayList.get(position);
-        holder.name.setText(ingredientData.getTitle());
-        holder.image.setImageResource(ingredientData.getImgid());
+        Ingredient ingredientData = ingredientDataArrayList.get(position);
+        holder.name.setText(ingredientData.getName());
+//        holder.image.setImageResource(ingredientData.getImgid());
     }
 
     @Override
@@ -53,5 +57,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             name = itemView.findViewById(R.id.ingredientName);
             image = itemView.findViewById(R.id.ingredientImage);
         }
+    }
+
+    public void setIngredientDataArrayList(ArrayList<Ingredient> ingredientArrayList) {
+        this.ingredientDataArrayList = ingredientArrayList;
+        notifyDataSetChanged();
     }
 }

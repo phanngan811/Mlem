@@ -1,7 +1,10 @@
 package com.example.mlem;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         if (mViewModel.getUser() != null) {
+            System.out.println("----GOT here------");
+            Log.d(TAG, "----GOT here------");
             goToDashboard();
         }
 
