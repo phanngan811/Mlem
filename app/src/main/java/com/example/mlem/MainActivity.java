@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToDashboard() {
-        Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+        Intent intent = new Intent(MainActivity.this, DashBoard.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
