@@ -1,5 +1,7 @@
 package com.example.mlem.Model;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class Ingredient {
@@ -7,15 +9,17 @@ public class Ingredient {
     private String name;
     private Double price;
     private List<String> tagNames;
+    private String imageUrl;
 
     public Ingredient() {
     }
 
-    public Ingredient(String id, String name, Double price, List<String> tagNames) {
+    public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.tagNames = tagNames;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -50,6 +54,15 @@ public class Ingredient {
         this.tagNames = tagNames;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @NonNull
     @Override
     public String toString() {
         return "Ingredient{" +
@@ -57,6 +70,7 @@ public class Ingredient {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", tagNames=" + tagNames +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

@@ -11,17 +11,19 @@ public class Recipe {
     private List<String> tagNames;
     private List<String> steps;
     private List<Ingredient> ingredients;
+    private String imageUrl;
 
     public Recipe() {
     }
 
-    public Recipe(String id, String name, List<String> ingredientIds, List<String> tagNames, List<String> steps, List<Ingredient> ingredients) {
+    public Recipe(String id, String name, List<String> ingredientIds, List<String> tagNames, List<String> steps, List<Ingredient> ingredients, String imageUrl) {
         this.id = id;
         this.name = name;
         this.ingredientIds = ingredientIds;
         this.tagNames = tagNames;
         this.steps = steps;
         this.ingredients = ingredients;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -72,6 +74,14 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -82,6 +92,7 @@ public class Recipe {
                 ", tagNames=" + tagNames +
                 ", steps=" + steps +
                 ", ingredients=" + ingredients +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }
