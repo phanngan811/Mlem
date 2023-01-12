@@ -30,6 +30,7 @@ public class RecipeSearchResultVM extends AndroidViewModel {
     }
 
     public void search(String query, SearchByType type) {
+        if (query == null) return;
         if (type == SearchByType.NAME) {
             recipeRepository.searchByName(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Recipe> list = new ArrayList<>();

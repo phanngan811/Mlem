@@ -64,16 +64,10 @@ public class BlogRepository {
     }
 
     public Task<QuerySnapshot> searchByTitle(String queryString) {
-        if (queryString == null) {
-            return getAll();
-        }
         return collectionReference.whereEqualTo("title", queryString).get();
     }
 
     public Task<QuerySnapshot> searchByTag(String queryString) {
-        if (queryString == null) {
-            return getAll();
-        }
         String[] queryList = queryString.split("\\s+");
         return collectionReference.whereArrayContainsAny("tagNames", Arrays.asList(queryList)).get();
     }
