@@ -2,16 +2,14 @@ package com.example.mlem.Repository;
 
 import android.util.Log;
 
-import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Model.Recipe;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class RecipeRepository {
     private static final String TAG = RecipeRepository.class.getName();
@@ -45,35 +43,8 @@ public class RecipeRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting", e));
     }
 
-    public Recipe getOne(String id) {
-        final Recipe[] recipe = {new Recipe()};
-
-        collectionReference.document(id).get()
-                .addOnSuccessListener(document -> {
-                    Recipe item = document.toObject(Recipe.class);
-                    if (item == null) return;
-                    item.setId(document.getId());
-
-                    List<Ingredient> list = new ArrayList<>();
-
-                    // get ingredient for each ingredient id
-                    for (String ingredientId : item.getIngredientIds()) {
-                        ingredientRepository.getOne(ingredientId).addOnSuccessListener(document1 -> {
-                            Ingredient item1 = document.toObject(Ingredient.class);
-                            if (item1 == null) return;
-                            item1.setId(document.getId());
-                            list.add(item1);
-                        });
-                    }
-
-                    item.setIngredients(list);
-                    recipe[0] = item;
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Get one", e);
-                });
-
-        return recipe[0];
+    public Task<DocumentSnapshot> getOne(String id) {
+        return collectionReference.document(id).get();
     }
 
     public Task<QuerySnapshot> getAll() {
