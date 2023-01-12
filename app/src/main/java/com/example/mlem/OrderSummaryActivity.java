@@ -1,5 +1,6 @@
 package com.example.mlem;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -26,8 +27,16 @@ public class OrderSummaryActivity extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(OrderSummaryVM.class);
         mViewModel.getCart();
 
+        initListeners();
         initAdapters();
         initObservers();
+    }
+
+    private void initListeners() {
+        mBinding.btnConfirm.setOnClickListener(v -> {
+            Intent intent = new Intent(OrderSummaryActivity.this, OrderCompleteActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void initObservers() {
