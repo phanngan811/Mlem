@@ -10,10 +10,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class RecipeRepository {
     private static final String TAG = RecipeRepository.class.getName();
@@ -52,7 +51,6 @@ public class RecipeRepository {
 
         collectionReference.document(id).get()
                 .addOnSuccessListener(document -> {
-                    System.out.println(document);
                     Recipe item = document.toObject(Recipe.class);
                     if (item == null) return;
                     item.setId(document.getId());
@@ -61,9 +59,12 @@ public class RecipeRepository {
 
                     // get ingredient for each ingredient id
                     for (String ingredientId : item.getIngredientIds()) {
-                        Ingredient ingredient = ingredientRepository.getOne(ingredientId);
-                        if (ingredient == null) continue;
-                        list.add(ingredient);
+                        ingredientRepository.getOne(ingredientId).addOnSuccessListener(document1 -> {
+                            Ingredient item1 = document.toObject(Ingredient.class);
+                            if (item1 == null) return;
+                            item1.setId(document.getId());
+                            list.add(item1);
+                        });
                     }
 
                     item.setIngredients(list);
