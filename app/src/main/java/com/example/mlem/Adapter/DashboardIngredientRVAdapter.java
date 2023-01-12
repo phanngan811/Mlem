@@ -1,6 +1,11 @@
 package com.example.mlem.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.R;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
+public class DashboardIngredientRVAdapter extends RecyclerView.Adapter<DashboardIngredientRVAdapter.RecyclerViewHolder> {
 
     private ArrayList<Ingredient> ingredientDataArrayList;
     private Context mcontext;
 
-    public RecyclerViewAdapter(Context mcontext) {
+    public DashboardIngredientRVAdapter(Context mcontext) {
         ingredientDataArrayList = new ArrayList<>();
         this.mcontext = mcontext;
     }
@@ -37,7 +47,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // Set the data to textview and imageview.
         Ingredient ingredientData = ingredientDataArrayList.get(position);
         holder.name.setText(ingredientData.getName());
-//        holder.image.setImageResource(ingredientData.getImgid());
+        Locale locale = new Locale("en", "US");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        holder.price.setText(currencyFormatter.format(ingredientData.getPrice()));
+        if(ingredientData.getImageUrl() != null){
+            ImageView imgView = (ImageView) holder.image;
+            Picasso.get().load(ingredientData.getImageUrl()).into(imgView);
+        }
     }
 
     @Override
@@ -51,11 +67,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private TextView name;
         private ImageView image;
+        private TextView price;
 
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.ingredientName);
             image = itemView.findViewById(R.id.ingredientImage);
+            price = itemView.findViewById(R.id.ingredientPrice);
         }
     }
 
@@ -63,4 +81,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.ingredientDataArrayList = ingredientArrayList;
         notifyDataSetChanged();
     }
+
 }
