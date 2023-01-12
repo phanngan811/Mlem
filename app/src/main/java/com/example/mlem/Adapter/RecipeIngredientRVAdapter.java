@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mlem.Model.Ingredient;
+import com.example.mlem.Model.CartItem;
 import com.example.mlem.databinding.ItemRecipeIngredientBinding;
 
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ import java.util.List;
 
 public class RecipeIngredientRVAdapter extends RecyclerView.Adapter<RecipeIngredientRVAdapter.IngredientViewHolder> {
 
-    private List<Ingredient> ingredients;
+    private List<CartItem> cartItems;
 
     public RecipeIngredientRVAdapter() {
-        ingredients = new ArrayList<>();
+        cartItems = new ArrayList<>();
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
         notifyDataSetChanged();
     }
 
@@ -34,17 +34,17 @@ public class RecipeIngredientRVAdapter extends RecyclerView.Adapter<RecipeIngred
 
     @Override
     public void onBindViewHolder(@NonNull RecipeIngredientRVAdapter.IngredientViewHolder holder, int position) {
-        Ingredient ingredient = ingredients.get(position);
-        if (ingredient == null) {
+        CartItem cartItem = cartItems.get(position);
+        if (cartItem == null) {
             return;
         }
-        holder.binding.tvName.setText(ingredient.getName());
-        holder.binding.tvAmount.setText(String.format("%s%s", String.valueOf(ingredient.getPrice()), ingredient.getUnit() != null ? " " + ingredient.getUnit() : ""));
+        holder.binding.tvName.setText(cartItem.getIngredient().getName());
+        holder.binding.tvAmount.setText(String.format("%s%s", cartItem.getAmount(), cartItem.getIngredient().getUnit() != null ? " " + cartItem.getIngredient().getUnit() : ""));
     }
 
     @Override
     public int getItemCount() {
-        return ingredients.size();
+        return cartItems.size();
     }
 
     public static class IngredientViewHolder extends RecyclerView.ViewHolder {

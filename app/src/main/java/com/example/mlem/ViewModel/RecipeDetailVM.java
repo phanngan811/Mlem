@@ -7,8 +7,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.mlem.Model.CartItem;
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Model.Recipe;
+import com.example.mlem.Repository.CartRepository;
 import com.example.mlem.Repository.IngredientRepository;
 import com.example.mlem.Repository.RecipeRepository;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class RecipeDetailVM extends AndroidViewModel {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
+    private final CartRepository cartRepository;
     private final MutableLiveData<String> id;
     private final MutableLiveData<Recipe> recipe;
 
@@ -25,6 +28,7 @@ public class RecipeDetailVM extends AndroidViewModel {
         super(application);
         recipeRepository = new RecipeRepository();
         ingredientRepository = new IngredientRepository();
+        cartRepository = new CartRepository();
         id = new MutableLiveData<>("");
         recipe = new MutableLiveData<>(new Recipe());
     }
@@ -35,18 +39,27 @@ public class RecipeDetailVM extends AndroidViewModel {
             if (recipe == null) return;
             recipe.setId(snapshot.getId());
 
-            List<Ingredient> ingredients = new ArrayList<>();
+            List<CartItem> cart = new ArrayList<>();
 
             // get ingredient for each ingredient id
-            for (String ingredientId : recipe.getIngredientIds()) {
-                ingredientRepository.getOne(ingredientId).addOnSuccessListener(innerSnapshot -> {
-                    Ingredient ingredient = innerSnapshot.toObject(Ingredient.class);
-                    if (ingredient == null) return;
-                    ingredient.setId(innerSnapshot.getId());
-                    ingredients.add(ingredient);
-                    recipe.setIngredients(ingredients);
+            if (recipe.getCartItemIds() == null) return;
+            for (String cartItemId : recipe.getCartItemIds()) {
+                cartRepository.getOne(cartItemId).addOnSuccessListener(innerSnapshot -> {
+                    CartItem cartItem = innerSnapshot.toObject(CartItem.class);
+                    if (cartItem == null) return;
+                    cartItem.setId(innerSnapshot.getId());
 
-                    this.recipe.setValue(recipe);
+                    ingredientRepository.getOne(cartItem.getIngredientId()).addOnSuccessListener(innerInnerSnapshot -> {
+                        Ingredient ingredient = innerInnerSnapshot.toObject(Ingredient.class);
+                        if (ingredient == null) return;
+                        ingredient.setId(innerInnerSnapshot.getId());
+
+                        cartItem.setIngredient(ingredient);
+                        cart.add(cartItem);
+                        recipe.setCartItems(cart);
+
+                        this.recipe.setValue(recipe);
+                    });
                 });
             }
         });

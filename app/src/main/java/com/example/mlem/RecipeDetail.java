@@ -49,8 +49,8 @@ public class RecipeDetail extends AppCompatActivity {
     private void initObservers() {
         mViewModel.getRecipe().observe(this, recipe -> {
             mBinding.tvTitle.setText(recipe.getName());
-            if (recipe.getIngredients() != null) {
-                mIngredientRVAdapter.setIngredients(recipe.getIngredients());
+            if (recipe.getCartItems() != null) {
+                mIngredientRVAdapter.setCartItems(recipe.getCartItems());
             }
             if (recipe.getSteps() != null) {
                 mStepRVAdapter.setSteps(recipe.getSteps());

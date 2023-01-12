@@ -16,7 +16,6 @@ public class Ingredient {
     }
 
     public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl, String unit) {
-
         this.id = id;
         this.name = name;
         this.price = price;
