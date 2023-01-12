@@ -10,7 +10,6 @@ public class Ingredient {
     private Double price;
     private String imageUrl;
     private List<String> tagNames;
-    private String imageUrl;
     private String unit;
 
     public Ingredient() {
