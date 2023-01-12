@@ -28,8 +28,7 @@ public class BlogSearchResultFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentBlogSearchResultBinding.inflate(inflater, container, false);
         mView = mBinding.getRoot();
         mSearchResultActivity = (SearchResultActivity) getActivity();
@@ -51,7 +50,10 @@ public class BlogSearchResultFragment extends Fragment {
             mRVAdapter.setBlogs(result);
         });
         mSearchResultActivity.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
-            mViewModel.search(s);
+            mViewModel.search(s, mSearchResultActivity.getSearchByType().getValue());
+        });
+        mSearchResultActivity.getSearchByType().observe(getViewLifecycleOwner(), t -> {
+            mViewModel.search(mSearchResultActivity.getSearchQuery().getValue(), t);
         });
     }
 

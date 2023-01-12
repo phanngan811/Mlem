@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.mlem.Adapter.IngredientRVAdapter;
 import com.example.mlem.ViewModel.IngredientSearchResultVM;
@@ -28,8 +28,7 @@ public class IngredientSearchResultFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = FragmentIngredientSearchResultBinding.inflate(inflater, container, false);
         mView = mBinding.getRoot();
         mSearchResultActivity = (SearchResultActivity) getActivity();
@@ -51,13 +50,16 @@ public class IngredientSearchResultFragment extends Fragment {
             mRVAdapter.setIngredients(result);
         });
         mSearchResultActivity.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
-            mViewModel.search(s);
+            mViewModel.search(s, mSearchResultActivity.getSearchByType().getValue());
+        });
+        mSearchResultActivity.getSearchByType().observe(getViewLifecycleOwner(), t -> {
+            mViewModel.search(mSearchResultActivity.getSearchQuery().getValue(), t);
         });
     }
 
     private void initAdapters() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mView.getContext());
-        mBinding.rvResult.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mView.getContext(), 2);
+        mBinding.rvResult.setLayoutManager(gridLayoutManager);
         mRVAdapter = new IngredientRVAdapter();
         mBinding.rvResult.setAdapter(mRVAdapter);
     }

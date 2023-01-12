@@ -5,6 +5,12 @@ import android.util.Log;
 import com.example.mlem.Model.Blog;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Arrays;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -57,7 +63,18 @@ public class BlogRepository {
         return collectionReference.get();
     }
 
-    public Task<QuerySnapshot> search(String queryString) {
+    public Task<QuerySnapshot> searchByTitle(String queryString) {
+        if (queryString == null) {
+            return getAll();
+        }
         return collectionReference.whereEqualTo("title", queryString).get();
+    }
+
+    public Task<QuerySnapshot> searchByTag(String queryString) {
+        if (queryString == null) {
+            return getAll();
+        }
+        String[] queryList = queryString.split("\\s+");
+        return collectionReference.whereArrayContainsAny("tagNames", Arrays.asList(queryList)).get();
     }
 }
