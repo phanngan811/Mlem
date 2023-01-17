@@ -2,26 +2,15 @@ package com.example.mlem.Repository;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.mlem.Model.Ingredient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class IngredientRepository {
     private static final String TAG = IngredientRepository.class.getName();
@@ -55,14 +44,18 @@ public class IngredientRepository {
 
     public Task<DocumentSnapshot> getOne(String id) {
         return collectionReference.document(id).get();
-
     }
 
     public Task<QuerySnapshot> getAll() {
         return collectionReference.get();
     }
 
-    public Task<QuerySnapshot> search(String queryString) {
+    public Task<QuerySnapshot> searchByName(String queryString) {
         return collectionReference.whereEqualTo("name", queryString).get();
+    }
+
+    public Task<QuerySnapshot> searchByTag(String queryString) {
+        String[] queryList = queryString.split("\\s+");
+        return collectionReference.whereArrayContainsAny("tagNames", Arrays.asList(queryList)).get();
     }
 }

@@ -1,12 +1,20 @@
 package com.example.mlem;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mlem.Model.Blog;
+import com.example.mlem.Model.Ingredient;
+import com.example.mlem.Model.Recipe;
+import com.example.mlem.Repository.BlogRepository;
+import com.example.mlem.Repository.RecipeRepository;
 import com.example.mlem.ViewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         if (mViewModel.getUser() != null) {
+            System.out.println("----GOT here------");
+            Log.d(TAG, "----GOT here------");
             goToDashboard();
         }
 

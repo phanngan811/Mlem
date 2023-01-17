@@ -1,13 +1,13 @@
 package com.example.mlem.ViewModel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.mlem.Enum.SearchByType;
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Repository.IngredientRepository;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,23 +24,32 @@ public class IngredientSearchResultVM extends AndroidViewModel {
     public IngredientSearchResultVM(@NonNull Application application) {
         super(application);
         ingredientRepository = new IngredientRepository();
-        result = new MutableLiveData<>();
+        result = new MutableLiveData<>(new ArrayList<>());
     }
 
-    public void search(String query) {
-        ingredientRepository.search(query).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+    public void search(String query, SearchByType type) {
+        if (query == null) return;
+        if (type == SearchByType.NAME) {
+            ingredientRepository.searchByName(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Ingredient> list = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Ingredient item = document.toObject(Ingredient.class);
                     item.setId(document.getId());
                     list.add(item);
                 }
-                result.setValue(list);
-            } else {
-                Log.e(TAG, "Error searching", task.getException());
-            }
-        });
+                this.result.setValue(list);
+            });
+        } else {
+            ingredientRepository.searchByTag(query).addOnSuccessListener(queryDocumentSnapshots -> {
+                List<Ingredient> list = new ArrayList<>();
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    Ingredient item = document.toObject(Ingredient.class);
+                    item.setId(document.getId());
+                    list.add(item);
+                }
+                this.result.setValue(list);
+            });
+        }
     }
 
     public LiveData<List<Ingredient>> getResult() {
