@@ -13,6 +13,7 @@ import com.example.mlem.Repository.BlogRepository;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BlogSearchResultVM extends AndroidViewModel {
@@ -28,7 +29,7 @@ public class BlogSearchResultVM extends AndroidViewModel {
     }
 
     public void search(String query, SearchByType type) {
-        if (query == null) return;
+        if (query == null || query.trim().equals("")) return;
         if (type == SearchByType.NAME) {
             blogRepository.searchByTitle(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Blog> list = new ArrayList<>();
@@ -40,7 +41,8 @@ public class BlogSearchResultVM extends AndroidViewModel {
                 this.result.setValue(list);
             });
         } else {
-            blogRepository.searchByTag(query).addOnSuccessListener(queryDocumentSnapshots -> {
+            String[] queryList = query.split("\\s+");
+            blogRepository.searchByTag(Arrays.asList(queryList)).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Blog> list = new ArrayList<>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Blog item = document.toObject(Blog.class);

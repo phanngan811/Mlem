@@ -13,6 +13,7 @@ import com.example.mlem.Repository.IngredientRepository;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class IngredientSearchResultVM extends AndroidViewModel {
@@ -28,7 +29,7 @@ public class IngredientSearchResultVM extends AndroidViewModel {
     }
 
     public void search(String query, SearchByType type) {
-        if (query == null) return;
+        if (query == null || query.trim().equals("")) return;
         if (type == SearchByType.NAME) {
             ingredientRepository.searchByName(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Ingredient> list = new ArrayList<>();
@@ -40,7 +41,8 @@ public class IngredientSearchResultVM extends AndroidViewModel {
                 this.result.setValue(list);
             });
         } else {
-            ingredientRepository.searchByTag(query).addOnSuccessListener(queryDocumentSnapshots -> {
+            String[] queryList = query.split("\\s+");
+            ingredientRepository.searchByTag(Arrays.asList(queryList)).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Ingredient> list = new ArrayList<>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Ingredient item = document.toObject(Ingredient.class);
