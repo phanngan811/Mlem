@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.mlem.Adapter.BlogRVAdapter;
 import com.example.mlem.Adapter.DashboardBlogRVAdapter;
 import com.example.mlem.Adapter.DashboardIngredientRVAdapter;
 import com.example.mlem.Model.Blog;
@@ -39,7 +38,7 @@ public class DashBoard extends AppCompatActivity implements IngredientInterface 
         mViewModel.getIngredients();
         mViewModel.getBlogs();
         DashboardIngredientRVAdapter ingredientAdapter=new DashboardIngredientRVAdapter(this, this);
-        DashboardBlogRVAdapter blogAdapter = new DashboardBlogRVAdapter(this);
+        DashboardBlogRVAdapter blogAdapter = new DashboardBlogRVAdapter(this, this);
 //        BlogRVAdapter blogAdapter = new BlogRVAdapter(this);
         mViewModel.getIngredientResults().observe(this, new Observer<List<Ingredient>>() {
             @Override
@@ -70,9 +69,16 @@ public class DashBoard extends AppCompatActivity implements IngredientInterface 
         blogsRv.setAdapter(blogAdapter);
     }
     @Override
-    public void onClick(int position) {
+    public void onClickIngredient(int position) {
         Intent i = new Intent(DashBoard.this, IngredientDetail.class);
         i.putExtra("ingredientId", mViewModel.getIngredientResults().getValue().get(position).getId());
+        startActivity(i);
+    }
+
+    @Override
+    public void onClickBlog(int position) {
+        Intent i = new Intent(DashBoard.this, BlogDetail.class);
+        i.putExtra("blogId", mViewModel.getBlogResults().getValue().get(position).getId());
         startActivity(i);
     }
 }

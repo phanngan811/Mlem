@@ -1,14 +1,19 @@
 package com.example.mlem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class BlogDetail extends AppCompatActivity {
+import com.example.mlem.ViewModel.BlogVM;
 
+public class BlogDetail extends AppCompatActivity {
+    private BlogVM blogVM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,5 +25,18 @@ public class BlogDetail extends AppCompatActivity {
         TextView blogDescription = findViewById(R.id.dishDescriptionText);
 
         ImageButton nextBtn = findViewById(R.id.nextBtn);
+
+        Intent intent = getIntent();
+        String blogId = intent.getStringExtra("blogId");
+
+        blogVM = new ViewModelProvider(this).get(BlogVM.class);
+        blogVM.setId(blogId);
+        blogVM.getOne();
+        blogVM.getBlog().observe(this, blog -> {
+            blogName.setText(blog.getTitle());
+            blogDescription.setText(blog.getContent());
+            authorName.setText(blog.getAuthor());
+
+        });
     }
 }

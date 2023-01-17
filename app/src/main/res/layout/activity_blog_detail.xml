@@ -25,14 +25,14 @@
             android:id="@+id/ratingBar"
             android:layout_width="196dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="1dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:text="By: "
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -52,7 +52,7 @@
     <ImageView
         android:id="@+id/dishImage"
         android:layout_width="match_parent"
-        android:layout_height="310dp"
+        android:layout_height="234dp"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView

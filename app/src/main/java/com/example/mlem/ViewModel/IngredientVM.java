@@ -48,7 +48,7 @@ public class IngredientVM extends AndroidViewModel {
 
                         cartItem.setIngredient(ingredient);
                         cart.add(cartItem);
-                    ingredient.setCartItems(cart);
+                        ingredient.setCartItems(cart);
 
                         this.ingredient.setValue(ingredient);
 

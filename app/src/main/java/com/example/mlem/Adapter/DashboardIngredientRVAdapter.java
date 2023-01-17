@@ -85,7 +85,7 @@ public class DashboardIngredientRVAdapter extends RecyclerView.Adapter<Dashboard
                         int pos = getAdapterPosition();
 
                         if(pos != RecyclerView.NO_POSITION){
-                            ingredientInterface.onClick(pos);
+                            ingredientInterface.onClickIngredient(pos);
                         }
                     }
                 }

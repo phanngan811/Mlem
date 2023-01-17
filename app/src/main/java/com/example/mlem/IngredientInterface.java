@@ -1,5 +1,7 @@
 package com.example.mlem;
 
 public interface IngredientInterface {
-    void onClick(int position);
+    void onClickBlog(int position);
+
+    void onClickIngredient(int position);
 }
