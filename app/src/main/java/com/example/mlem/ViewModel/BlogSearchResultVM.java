@@ -28,6 +28,7 @@ public class BlogSearchResultVM extends AndroidViewModel {
     }
 
     public void search(String query, SearchByType type) {
+        if (query == null) return;
         if (type == SearchByType.NAME) {
             blogRepository.searchByTitle(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Blog> list = new ArrayList<>();
