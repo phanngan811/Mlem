@@ -8,10 +8,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.mlem.Model.Blog;
 import com.example.mlem.Model.Ingredient;
+import com.example.mlem.Repository.BlogRepository;
 import com.example.mlem.Repository.IngredientRepository;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +20,17 @@ import java.util.List;
 public class DashboardVM extends AndroidViewModel {
     private static final String TAG = IngredientSearchResultVM.class.getName();
     private IngredientRepository ingredientRepository;
+    private BlogRepository blogRepository;
 
-    private final MutableLiveData<List<Ingredient>> result;
+    private final MutableLiveData<List<Ingredient>> ingredientResults;
+    private final MutableLiveData<List<Blog>> blogResults;
 
     public DashboardVM(@NonNull Application application) {
         super(application);
         ingredientRepository = new IngredientRepository();
-        result = new MutableLiveData<>();
+        blogRepository = new BlogRepository();
+        ingredientResults = new MutableLiveData<>();
+        blogResults = new MutableLiveData<>();
     }
 
     public void getIngredients() {
@@ -36,11 +41,24 @@ public class DashboardVM extends AndroidViewModel {
                 item.setId(document.getId());
                 list.add(item);
             }
-            result.setValue(list);
+            ingredientResults.setValue(list);
         });
     }
 
-    public LiveData<List<Ingredient>> getResult() {return result;}
+    public void getBlogs() {
+        blogRepository.getAll().addOnSuccessListener(task -> {
+            List<Blog> list = new ArrayList<>();
+            for (DocumentSnapshot document: task.getDocuments()) {
+                Blog item = document.toObject(Blog.class);
+                item.setId(document.getId());
+                list.add(item);
+            }
+            blogResults.setValue(list);
+        });
+    }
+
+    public LiveData<List<Ingredient>> getIngredientResults() {return ingredientResults;}
+    public LiveData<List<Blog>> getBlogResults() {return blogResults;}
 }
 
 
