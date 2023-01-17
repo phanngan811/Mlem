@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mlem.Adapter.BlogRVAdapter;
@@ -19,7 +20,7 @@ import com.example.mlem.ViewModel.DashboardVM;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashBoard extends AppCompatActivity {
+public class DashBoard extends AppCompatActivity implements IngredientInterface {
 
     RecyclerView ingredientsRv;
     RecyclerView blogsRv;
@@ -37,7 +38,7 @@ public class DashBoard extends AppCompatActivity {
        // added data from arraylist to adapter class.
         mViewModel.getIngredients();
         mViewModel.getBlogs();
-        DashboardIngredientRVAdapter ingredientAdapter=new DashboardIngredientRVAdapter(this);
+        DashboardIngredientRVAdapter ingredientAdapter=new DashboardIngredientRVAdapter(this, this);
         DashboardBlogRVAdapter blogAdapter = new DashboardBlogRVAdapter(this);
 //        BlogRVAdapter blogAdapter = new BlogRVAdapter(this);
         mViewModel.getIngredientResults().observe(this, new Observer<List<Ingredient>>() {
@@ -67,8 +68,11 @@ public class DashBoard extends AppCompatActivity {
 
         blogsRv.setLayoutManager(blogListLayoutManager);
         blogsRv.setAdapter(blogAdapter);
-
-
-
+    }
+    @Override
+    public void onClick(int position) {
+        Intent i = new Intent(DashBoard.this, IngredientDetail.class);
+        i.putExtra("ingredientId", mViewModel.getIngredientResults().getValue().get(position).getId());
+        startActivity(i);
     }
 }
