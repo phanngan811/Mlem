@@ -16,7 +16,7 @@
         android:gravity="center"
         android:orientation="vertical">
         <ImageView
-            android:id="@+id/dashboardBlogImage"
+            android:id="@+id/dashboardItemImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:contentDescription="image"
@@ -25,7 +25,7 @@
             />
 
         <TextView
-            android:id="@+id/dashboardBlogTitle"
+            android:id="@+id/dashboardItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
