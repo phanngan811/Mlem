@@ -12,25 +12,27 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvChips"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-
-        </HorizontalScrollView>
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/svSearchBar"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="Search"
-            android:hint="Search" />
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/svSearchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Search"
+                android:hint="Search"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnConfirm"
@@ -40,16 +42,31 @@
             android:backgroundTint="@color/secondary"
             android:paddingHorizontal="40dp"
             android:paddingVertical="12dp"
-            android:text="Make me a dish"
+            android:text="Add ingredient"
             android:textAllCaps="false"
             android:textColor="@color/neutral_100"
             android:textStyle="bold"
             app:cornerRadius="10dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecipes"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Suggested Recipes"
+            android:textColor="@color/neutral_900"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecipes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
 
     </LinearLayout>
