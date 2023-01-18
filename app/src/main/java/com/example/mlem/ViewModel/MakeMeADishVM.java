@@ -19,20 +19,18 @@ import java.util.Objects;
 public class MakeMeADishVM extends AndroidViewModel {
     private static final String TAG = MakeMeADishActivity.class.getName();
 
-    private final MutableLiveData<List<String>> chips;
     private final MutableLiveData<List<Recipe>> recipes;
     private final RecipeRepository recipeRepository;
 
     public MakeMeADishVM(@NonNull Application application) {
         super(application);
-        chips = new MutableLiveData<>(new ArrayList<>());
         recipes = new MutableLiveData<>(new ArrayList<>());
         recipeRepository = new RecipeRepository();
     }
 
-    public void searchRecipes() {
-        if (Objects.requireNonNull(chips.getValue()).size() == 0) return;
-        recipeRepository.searchByTag(chips.getValue()).addOnSuccessListener(queryDocumentSnapshots -> {
+    public void searchRecipes(List<String> chips) {
+        if (chips.size() == 0) return;
+        recipeRepository.searchByTag(chips).addOnSuccessListener(queryDocumentSnapshots -> {
             List<Recipe> list = new ArrayList<>();
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 Recipe item = document.toObject(Recipe.class);
@@ -48,20 +46,5 @@ public class MakeMeADishVM extends AndroidViewModel {
 
     public LiveData<List<Recipe>> getRecipes() {
         return recipes;
-    }
-
-    public void addChip(String name) {
-        if (Objects.requireNonNull(chips.getValue()).size() >= 10) return;
-        List<String> updated = chips.getValue();
-        updated.add(name);
-        chips.setValue(updated);
-    }
-
-    public LiveData<List<String>> getChips() {
-        return chips;
-    }
-
-    public void setChips(List<String> chips) {
-        this.chips.setValue(chips);
     }
 }

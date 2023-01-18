@@ -17,8 +17,8 @@ import java.util.List;
 
 public class RecipeRVAdapter extends RecyclerView.Adapter<RecipeRVAdapter.RecipeViewHolder> {
 
-    private List<Recipe> recipes;
     private final Context context;
+    private List<Recipe> recipes;
 
     public RecipeRVAdapter(Context context) {
         this.context = context;

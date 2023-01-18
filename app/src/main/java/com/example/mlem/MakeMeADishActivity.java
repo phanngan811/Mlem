@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.Adapter.RecipeRVAdapter;
 import com.example.mlem.Adapter.TagChipRVAdapter;
-import com.example.mlem.Model.Recipe;
 import com.example.mlem.ViewModel.MakeMeADishVM;
 import com.example.mlem.databinding.ActivityMakeMeAdishBinding;
 
+import java.util.Objects;
+
 public class MakeMeADishActivity extends AppCompatActivity {
     ActivityMakeMeAdishBinding mBinding;
-    TagChipRVAdapter mRVAdapter;
+    TagChipRVAdapter mChipRVAdapter;
     RecipeRVAdapter mRecipeRVAdapter;
     MakeMeADishVM mViewModel;
 
@@ -32,24 +33,27 @@ public class MakeMeADishActivity extends AppCompatActivity {
 
         initAdapters();
         initObservers();
-
-        mBinding.btnConfirm.setOnClickListener(v -> {
-            String tmp = mBinding.svSearchBar.getText().toString().trim();
-            if (tmp.equals("")) return;
-            mViewModel.setChips(mRVAdapter.getChips());
-            mViewModel.addChip(tmp);
-            mBinding.svSearchBar.setText("");
-            mViewModel.searchRecipes();
-        });
+        initListeners();
     }
 
     private void initObservers() {
-        mViewModel.getChips().observe(this, chips -> {
-            mRVAdapter.setChips(chips);
-            mViewModel.searchRecipes();
+        mChipRVAdapter.getChips().observe(this, chips -> {
+            mViewModel.searchRecipes(chips);
         });
         mViewModel.getRecipes().observe(this, recipes -> {
             mRecipeRVAdapter.setRecipes(recipes);
+        });
+    }
+
+    private void initListeners() {
+        mBinding.btnConfirm.setOnClickListener(v -> {
+            String tmp = Objects.requireNonNull(mBinding.svSearchBar.getText()).toString().trim();
+            if (tmp.equals("")) return;
+            String[] tmpList = tmp.split(" ");
+            for (String c : tmpList) {
+                mChipRVAdapter.addChip(c);
+            }
+            mBinding.svSearchBar.setText("");
         });
     }
 
@@ -57,12 +61,12 @@ public class MakeMeADishActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mBinding.rvChips.setLayoutManager(linearLayoutManager);
-        mRVAdapter = new TagChipRVAdapter();
-        mBinding.rvChips.setAdapter(mRVAdapter);
+        mChipRVAdapter = new TagChipRVAdapter();
+        mBinding.rvChips.setAdapter(mChipRVAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mBinding.rvRecipes.setLayoutManager(gridLayoutManager);
-        mRecipeRVAdapter = new RecipeRVAdapter();
+        mRecipeRVAdapter = new RecipeRVAdapter(this);
         mBinding.rvRecipes.setAdapter(mRecipeRVAdapter);
     }
 }

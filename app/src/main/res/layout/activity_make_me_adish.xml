@@ -42,7 +42,7 @@
             android:backgroundTint="@color/secondary"
             android:paddingHorizontal="40dp"
             android:paddingVertical="12dp"
-            android:text="Add ingredient"
+            android:text="Apply filter"
             android:textAllCaps="false"
             android:textColor="@color/neutral_100"
             android:textStyle="bold"
