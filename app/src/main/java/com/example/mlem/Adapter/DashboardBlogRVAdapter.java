@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mlem.IngredientDetail;
 import com.example.mlem.IngredientInterface;
 import com.example.mlem.Model.Blog;
 import com.example.mlem.R;
@@ -60,8 +59,8 @@ public class DashboardBlogRVAdapter extends RecyclerView.Adapter<DashboardBlogRV
 
         public RecyclerViewHolder(@NonNull View itemView, IngredientInterface ingredientInterface) {
             super(itemView);
-            name = itemView.findViewById(R.id.dashboardBlogTitle);
-            image = itemView.findViewById(R.id.dashboardBlogImage);
+            name = itemView.findViewById(R.id.dashboardItemTitle);
+            image = itemView.findViewById(R.id.dashboardItemImage);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
