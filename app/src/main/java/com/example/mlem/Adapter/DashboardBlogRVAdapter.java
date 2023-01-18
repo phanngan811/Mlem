@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mlem.IngredientInterface;
+import com.example.mlem.InterfaceGroup;
 import com.example.mlem.Model.Blog;
 import com.example.mlem.R;
 import com.squareup.picasso.Picasso;
@@ -20,9 +20,9 @@ import java.util.ArrayList;
 public class DashboardBlogRVAdapter extends RecyclerView.Adapter<DashboardBlogRVAdapter.RecyclerViewHolder> {
     private ArrayList<Blog> blogDataArrayList;
     private Context mcontext;
-    private final IngredientInterface ingredientInterface;
+    private final InterfaceGroup ingredientInterface;
 
-    public DashboardBlogRVAdapter(Context mcontext, IngredientInterface ingredientInterface) {
+    public DashboardBlogRVAdapter(Context mcontext, InterfaceGroup ingredientInterface) {
         this.mcontext = mcontext;
         blogDataArrayList = new ArrayList<>();
         this.ingredientInterface = ingredientInterface;
@@ -57,7 +57,7 @@ public class DashboardBlogRVAdapter extends RecyclerView.Adapter<DashboardBlogRV
         private TextView name;
         private ImageView image;
 
-        public RecyclerViewHolder(@NonNull View itemView, IngredientInterface ingredientInterface) {
+        public RecyclerViewHolder(@NonNull View itemView, InterfaceGroup ingredientInterface) {
             super(itemView);
             name = itemView.findViewById(R.id.dashboardItemTitle);
             image = itemView.findViewById(R.id.dashboardItemImage);

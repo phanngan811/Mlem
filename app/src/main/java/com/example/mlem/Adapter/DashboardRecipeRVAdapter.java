@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mlem.InterfaceGroup;
 import com.example.mlem.Model.Recipe;
 import com.example.mlem.R;
 import com.squareup.picasso.Picasso;
@@ -20,16 +21,19 @@ public class DashboardRecipeRVAdapter extends RecyclerView.Adapter<DashboardReci
     private ArrayList<Recipe> recipeDataArrayList;
     private Context mcontext;
 
-    public DashboardRecipeRVAdapter(Context mcontext) {
+    private final InterfaceGroup interfaceGroup;
+
+    public DashboardRecipeRVAdapter(Context mcontext, InterfaceGroup interfaceGroup) {
         this.mcontext = mcontext;
         recipeDataArrayList = new ArrayList<>();
+        this.interfaceGroup = interfaceGroup;
     }
 
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.featured_item, parent, false);
-        return new DashboardRecipeRVAdapter.RecyclerViewHolder(view);
+        return new DashboardRecipeRVAdapter.RecyclerViewHolder(view, interfaceGroup);
     }
 
     @Override
@@ -52,10 +56,23 @@ public class DashboardRecipeRVAdapter extends RecyclerView.Adapter<DashboardReci
         private TextView name;
         private ImageView image;
 
-        public RecyclerViewHolder(@NonNull View itemView) {
+        public RecyclerViewHolder(@NonNull View itemView, InterfaceGroup interfaceGroup) {
             super(itemView);
             name = itemView.findViewById(R.id.dashboardItemTitle);
             image = itemView.findViewById(R.id.dashboardItemImage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(interfaceGroup != null){
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            interfaceGroup.onClickRecipe(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 

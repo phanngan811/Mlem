@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mlem.ViewModel.IngredientVM;
+import com.squareup.picasso.Picasso;
 
 public class IngredientDetail extends AppCompatActivity {
 
@@ -41,7 +42,14 @@ public class IngredientDetail extends AppCompatActivity {
             ingredientName.setText(ingredient.getName());
             //ingredientDescription.setText(ingredient.getDescription());
             ingredientPrice.setText(String.valueOf(ingredient.getPrice()));
-            //ingredientImg.setImageURI(ingredient.getImageUrl());
+            if(ingredient.getImageUrl() != null){
+                Picasso.get().load(ingredient.getImageUrl()).into(ingredientImg);
+            }
         });
+
+        //change amount of ingredients to add to cart
+//        public void addAmount() {
+//
+//        }
     }
 }

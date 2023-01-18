@@ -21,7 +21,7 @@ import com.example.mlem.ViewModel.DashboardVM;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashBoard extends AppCompatActivity implements IngredientInterface {
+public class DashBoard extends AppCompatActivity implements InterfaceGroup {
 
     RecyclerView ingredientsRv;
     RecyclerView blogsRv;
@@ -44,7 +44,7 @@ public class DashBoard extends AppCompatActivity implements IngredientInterface 
         // setup RecyclerView adapters
         DashboardIngredientRVAdapter ingredientAdapter=new DashboardIngredientRVAdapter(this, this);
         DashboardBlogRVAdapter blogAdapter = new DashboardBlogRVAdapter(this, this);
-        DashboardRecipeRVAdapter recipeAdapter = new DashboardRecipeRVAdapter(this);
+        DashboardRecipeRVAdapter recipeAdapter = new DashboardRecipeRVAdapter(this, this);
 
         mViewModel.getIngredientResults().observe(this, new Observer<List<Ingredient>>() {
             @Override
@@ -96,6 +96,13 @@ public class DashBoard extends AppCompatActivity implements IngredientInterface 
     public void onClickBlog(int position) {
         Intent i = new Intent(DashBoard.this, BlogDetail.class);
         i.putExtra("blogId", mViewModel.getBlogResults().getValue().get(position).getId());
+        startActivity(i);
+    }
+
+    @Override
+    public void onClickRecipe(int position) {
+        Intent i = new Intent(DashBoard.this, RecipeDetail.class);
+        i.putExtra("recipeId", mViewModel.getRecipeResults().getValue().get(position).getId());
         startActivity(i);
     }
 }
