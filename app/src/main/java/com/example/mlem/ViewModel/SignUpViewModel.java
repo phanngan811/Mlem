@@ -28,17 +28,7 @@ public class SignUpViewModel extends AndroidViewModel {
         registerSuccess.setValue(false);
         errorMessage.setValue("");
 
-        repository.register(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                registerSuccess.setValue(true);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                errorMessage.setValue(e.getMessage());
-            }
-        });
+        repository.register(email, password).addOnSuccessListener(authResult -> registerSuccess.setValue(true)).addOnFailureListener(e -> errorMessage.setValue(e.getMessage()));
     }
 
     public LiveData<Boolean> getRegisterSuccess() {

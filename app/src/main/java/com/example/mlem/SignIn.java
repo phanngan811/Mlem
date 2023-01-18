@@ -3,51 +3,45 @@ package com.example.mlem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mlem.ViewModel.LoginViewModel;
+import com.example.mlem.databinding.ActivitySignInBinding;
 
 public class SignIn extends AppCompatActivity {
-    LoginViewModel loginViewModel;
-    EditText editTextUsername;
-    EditText editTextPassword;
-    TextView txtError;
+
+    LoginViewModel mViewModel;
+    ActivitySignInBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        mBinding = ActivitySignInBinding.inflate(getLayoutInflater());
+        View view = mBinding.getRoot();
+        setContentView(view);
 
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        editTextUsername = findViewById(R.id.editUsername);
-        editTextPassword = findViewById(R.id.editPassword);
-        txtError = findViewById(R.id.txtError);
+        initListeners();
+        initObservers();
+    }
 
-        loginViewModel.getErrorMessage().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                txtError.setText(s);
-            }
-        });
+    private void initObservers() {
+        mViewModel.getErrorMessage().observe(this, s -> mBinding.txtError.setText(s));
 
-        loginViewModel.getLoginSuccess().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    goToDashboard();
-                }
+        mViewModel.getLoginSuccess().observe(this, aBoolean -> {
+            if (aBoolean) {
+                goToDashboard();
             }
         });
     }
 
-    public void onClickConfirm(View view) {
-        loginViewModel.login(editTextUsername.getText().toString(), editTextPassword.getText().toString());
+    private void initListeners() {
+        mBinding.btnConfirm.setOnClickListener(v -> {
+            mViewModel.login(mBinding.editUsername.getText().toString(), mBinding.editPassword.getText().toString());
+        });
     }
 
     private void goToDashboard() {
