@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.mlem.Model.CartItem;
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Model.Recipe;
+import com.example.mlem.Repository.BlogRepository;
 import com.example.mlem.Repository.CartRepository;
 import com.example.mlem.Repository.IngredientRepository;
 import com.example.mlem.Repository.RecipeRepository;
@@ -21,6 +22,7 @@ public class RecipeDetailVM extends AndroidViewModel {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final CartRepository cartRepository;
+    private final BlogRepository blogRepository;
     private final MutableLiveData<String> id;
     private final MutableLiveData<Recipe> recipe;
 
@@ -28,6 +30,7 @@ public class RecipeDetailVM extends AndroidViewModel {
         super(application);
         recipeRepository = new RecipeRepository();
         ingredientRepository = new IngredientRepository();
+        blogRepository = new BlogRepository();
         cartRepository = new CartRepository();
         id = new MutableLiveData<>("");
         recipe = new MutableLiveData<>(new Recipe());

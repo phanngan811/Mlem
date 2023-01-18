@@ -51,7 +51,6 @@ public class IngredientVM extends AndroidViewModel {
                         ingredient.setCartItems(cart);
 
                         this.ingredient.setValue(ingredient);
-
                 });
             }
         });
