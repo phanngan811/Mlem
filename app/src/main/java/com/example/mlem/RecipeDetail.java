@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mlem.Adapter.RecipeIngredientRVAdapter;
 import com.example.mlem.Adapter.RecipeStepRVAdapter;
+import com.example.mlem.Adapter.RecipeTagRVAdapter;
 import com.example.mlem.ViewModel.RecipeDetailVM;
 import com.example.mlem.databinding.ActivityRecipeDetailBinding;
+import com.squareup.picasso.Picasso;
 
 public class RecipeDetail extends AppCompatActivity {
     private RecipeDetailVM mViewModel;
     private ActivityRecipeDetailBinding mBinding;
     private RecipeIngredientRVAdapter mIngredientRVAdapter;
     private RecipeStepRVAdapter mStepRVAdapter;
+    private RecipeTagRVAdapter mTagRVAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +56,17 @@ public class RecipeDetail extends AppCompatActivity {
             mBinding.tvTime.setText(recipe.getDuration());
             mBinding.tvDifficulty.setText(recipe.getDifficulty());
             mBinding.tvRating.setText(String.valueOf(recipe.getRating()));
+            if( recipe.getImageUrl() != null){
+                Picasso.get().load(recipe.getImageUrl()).into(mBinding.imageView2);
+            }
             if (recipe.getCartItems() != null) {
                 mIngredientRVAdapter.setCartItems(recipe.getCartItems());
             }
             if (recipe.getSteps() != null) {
                 mStepRVAdapter.setSteps(recipe.getSteps());
+            }
+            if (recipe.getTagNames() != null){
+                mTagRVAdapter.setTags(recipe.getTagNames());
             }
         });
     }
@@ -72,5 +81,10 @@ public class RecipeDetail extends AppCompatActivity {
         mBinding.rvDirections.setLayoutManager(stepLayoutManager);
         mStepRVAdapter = new RecipeStepRVAdapter();
         mBinding.rvDirections.setAdapter(mStepRVAdapter);
+
+        LinearLayoutManager tagLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mBinding.rvTags.setLayoutManager(tagLayoutManager);
+        mTagRVAdapter = new RecipeTagRVAdapter();
+        mBinding.rvTags.setAdapter(mTagRVAdapter);
     }
 }

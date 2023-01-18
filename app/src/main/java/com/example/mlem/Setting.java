@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.mlem.Model.Tag;
 import com.example.mlem.ViewModel.SettingVM;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -28,6 +29,12 @@ public class Setting extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.btnSave);
         EditText editTextTag = (EditText) findViewById(R.id.editTag);
         Button btnLogout = (Button) findViewById(R.id.btnLogout);
+        EditText txtFullname = (EditText) findViewById(R.id.txtFullname);
+
+        settingVM.getName();
+        settingVM.getUser().observe(this, user -> {
+            txtFullname.setText(user.getFirstName() +" "+ user.getLastName());
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +51,7 @@ public class Setting extends AppCompatActivity {
                 goToDashboard();
             }
         });
+
     }
     private void goToDashboard() {
         Intent intent = new Intent(Setting.this, MainActivity.class);

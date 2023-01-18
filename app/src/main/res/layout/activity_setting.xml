@@ -20,7 +20,7 @@
         android:text="Full name" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/txtFullname"
         android:layout_width="fill_parent"
         android:layout_height="68dp"
         android:padding="10pt"

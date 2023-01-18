@@ -24,6 +24,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+
         mViewModel = new ViewModelProvider(this).get(OrderSummaryVM.class);
         mViewModel.getCart();
 

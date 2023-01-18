@@ -53,4 +53,8 @@ public class TagRepository {
     public Task<QuerySnapshot> getAll() {
         return collectionReference.get();
     }
+
+    public Task<DocumentSnapshot> getOne(String id) {
+        return collectionReference.document(id).get();
+    }
 }
