@@ -49,7 +49,7 @@ public class BlogDetail extends AppCompatActivity {
             @Override
             public void onClick (View v) {
                 Intent i = new Intent(BlogDetail.this, RecipeDetail.class);
-                i.putExtra("blogId", blogVM.getBlog().getValue().getId());
+                i.putExtra("recipeId", blogVM.getBlog().getValue().getRecipeId());
                 startActivity(i);
                 finish();
             }
