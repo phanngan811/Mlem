@@ -81,7 +81,7 @@
             android:text="View Recipe" />
 
         <ImageButton
-            android:id="@+id/nextBtn"
+            android:id="@+id/viewRecipeBtn"
             android:layout_width="42dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

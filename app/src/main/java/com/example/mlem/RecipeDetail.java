@@ -28,7 +28,7 @@ public class RecipeDetail extends AppCompatActivity {
 
         // get id from intent from the recycler view adapter
         Intent intent = getIntent();
-        String recipeId = intent.getStringExtra("recipeId");
+        String recipeId = intent.getStringExtra("blogId");
 
         mViewModel = new ViewModelProvider(this).get(RecipeDetailVM.class);
 
