@@ -29,18 +29,24 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void initObservers() {
-        mViewModel.getErrorMessage().observe(this, s -> mBinding.txtError.setText(s));
+        int errorBg = getColor(R.color.error);
+        int textColor = getColor(R.color.neutral_100);
+
+        mViewModel.getErrorMessage().observe(this, s -> {
+            if (s == null || s.trim().equals("")) return;
+            mBinding.txtError.setText(s);
+            mBinding.txtError.setTextColor(textColor);
+            mBinding.errorParent.setBackgroundColor(errorBg);
+        });
 
         mViewModel.getLoginSuccess().observe(this, aBoolean -> {
-            if (aBoolean) {
-                goToDashboard();
-            }
+            if (aBoolean) goToDashboard();
         });
     }
 
     private void initListeners() {
         mBinding.btnConfirm.setOnClickListener(v -> {
-            mViewModel.login(mBinding.editUsername.getText().toString(), mBinding.editPassword.getText().toString());
+            mViewModel.login(mBinding.etEmail.getText().toString(), mBinding.etPassword.getText().toString());
         });
     }
 

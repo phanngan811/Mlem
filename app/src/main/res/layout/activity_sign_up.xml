@@ -7,19 +7,23 @@
     android:background="@color/green"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="30dp"
     tools:context=".SignUpActivity">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="300dp"
-        android:layout_height="353dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
+        android:contentDescription="LOGO"
+        android:paddingBottom="30dp"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/mlemmm" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="25dp"
         android:autofillHints="emailAddress"
         android:background="@drawable/btn_shape_rectangle"
@@ -33,6 +37,7 @@
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="5dp"
         android:autofillHints="password"
         android:background="@drawable/btn_shape_rectangle"
@@ -42,24 +47,35 @@
         android:paddingVertical="15dp"
         android:textColorHint="@color/dark_green" />
 
-    <TextView
-        android:id="@+id/txtError"
+    <LinearLayout
+        android:id="@+id/errorParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text=""
-        android:textColor="@color/red" />
+        android:layout_marginVertical="10dp"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="35dp"
+        android:paddingVertical="15dp">
+
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/transparent" />
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@color/neutral_100"
         android:onClick="onClickConfirm"
         android:padding="15dp"
-        android:text="Confirm"
+        android:text="Sign Up"
         android:textAllCaps="false"
-        android:textColor="@color/green"
+        android:textColor="@color/primary"
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius="10dp" />

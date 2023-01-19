@@ -37,9 +37,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void initObservers() {
-        mViewModel.getErrorMessage().observe(this, e -> {
-            mBinding.txtError.setText(e);
+        int errorBg = getColor(R.color.error);
+        int textColor = getColor(R.color.neutral_100);
+
+        mViewModel.getErrorMessage().observe(this, s -> {
+            if (s == null || s.trim().equals("")) return;
+            mBinding.txtError.setText(s);
+            mBinding.txtError.setTextColor(textColor);
+            mBinding.errorParent.setBackgroundColor(errorBg);
         });
+
         mViewModel.getRegisterSuccess().observe(this, boo -> {
             if (boo) {
                 goToDashboard();
