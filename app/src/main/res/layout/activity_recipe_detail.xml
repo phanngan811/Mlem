@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layoutRecipe"
     tools:context=".RecipeDetail">
 
     <LinearLayout
@@ -100,6 +101,11 @@
             <!--        android:layout_width="match_parent"-->
             <!--        android:layout_height="wrap_content"-->
             <!--        android:orientation="horizontal" />-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tvTitle"

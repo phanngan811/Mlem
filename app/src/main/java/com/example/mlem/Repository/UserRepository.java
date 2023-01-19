@@ -10,6 +10,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class UserRepository {
     FirebaseAuth firebaseAuth;
@@ -30,7 +31,8 @@ public class UserRepository {
         return firebaseAuth.createUserWithEmailAndPassword(email, password);
     }
 
-    public void logout(){
+    public void logout() {
         firebaseAuth.signOut();
     }
 }
+

@@ -1,6 +1,8 @@
 package com.example.mlem;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,6 +18,8 @@ public class OrderSummaryActivity extends AppCompatActivity {
     OrderSummaryVM mViewModel;
     ActivityOrderSummaryBinding mBinding;
     CartRVAdapter mRVAdapter;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +28,26 @@ public class OrderSummaryActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+
         mViewModel = new ViewModelProvider(this).get(OrderSummaryVM.class);
         mViewModel.getCart();
 
         initListeners();
         initAdapters();
         initObservers();
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 
     private void initListeners() {

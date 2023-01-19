@@ -1,8 +1,17 @@
 package com.example.mlem;
 
+import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,14 +19,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mlem.Adapter.RecipeIngredientRVAdapter;
 import com.example.mlem.Adapter.RecipeStepRVAdapter;
+import com.example.mlem.Adapter.RecipeTagRVAdapter;
 import com.example.mlem.ViewModel.RecipeDetailVM;
 import com.example.mlem.databinding.ActivityRecipeDetailBinding;
+import com.squareup.picasso.Picasso;
 
 public class RecipeDetail extends AppCompatActivity {
     private RecipeDetailVM mViewModel;
     private ActivityRecipeDetailBinding mBinding;
     private RecipeIngredientRVAdapter mIngredientRVAdapter;
     private RecipeStepRVAdapter mStepRVAdapter;
+    private RecipeTagRVAdapter mTagRVAdapter;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +51,20 @@ public class RecipeDetail extends AppCompatActivity {
         initListeners();
         initAdapters();
         initObservers();
+
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 
     private void initListeners() {
@@ -53,11 +80,17 @@ public class RecipeDetail extends AppCompatActivity {
             mBinding.tvTime.setText(recipe.getDuration());
             mBinding.tvDifficulty.setText(recipe.getDifficulty());
             mBinding.tvRating.setText(String.valueOf(recipe.getRating()));
+            if( recipe.getImageUrl() != null){
+                Picasso.get().load(recipe.getImageUrl()).into(mBinding.imageView2);
+            }
             if (recipe.getCartItems() != null) {
                 mIngredientRVAdapter.setCartItems(recipe.getCartItems());
             }
             if (recipe.getSteps() != null) {
                 mStepRVAdapter.setSteps(recipe.getSteps());
+            }
+            if (recipe.getTagNames() != null){
+                mTagRVAdapter.setTags(recipe.getTagNames());
             }
         });
     }
@@ -72,5 +105,10 @@ public class RecipeDetail extends AppCompatActivity {
         mBinding.rvDirections.setLayoutManager(stepLayoutManager);
         mStepRVAdapter = new RecipeStepRVAdapter();
         mBinding.rvDirections.setAdapter(mStepRVAdapter);
+
+        LinearLayoutManager tagLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mBinding.rvTags.setLayoutManager(tagLayoutManager);
+        mTagRVAdapter = new RecipeTagRVAdapter();
+        mBinding.rvTags.setAdapter(mTagRVAdapter);
     }
 }

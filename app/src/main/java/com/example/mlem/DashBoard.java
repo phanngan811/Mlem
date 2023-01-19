@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -28,6 +32,8 @@ public class DashBoard extends AppCompatActivity implements InterfaceGroup {
     RecyclerView blogsRv;
     RecyclerView recipeRv;
     DashboardVM mViewModel;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +91,23 @@ public class DashBoard extends AppCompatActivity implements InterfaceGroup {
 
         recipeRv.setLayoutManager(recipeListLayoutManager);
         recipeRv.setAdapter(recipeAdapter);
+
+
     }
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
+
+
     @Override
     public void onClickIngredient(int position) {
         Intent i = new Intent(DashBoard.this, IngredientDetail.class);

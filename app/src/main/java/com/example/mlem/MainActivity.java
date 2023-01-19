@@ -2,10 +2,18 @@ package com.example.mlem;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +27,7 @@ import com.example.mlem.ViewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
     MainViewModel mViewModel;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +42,20 @@ public class MainActivity extends AppCompatActivity {
             goToDashboard();
         }
 
-        // uncomment this to test dashboard
-//        Intent intent = new Intent(MainActivity.this, DashBoard.class);
-//        startActivity(intent);
-
     }
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
+
 
     public void onClickSignIn(View view) {
         Intent i = new Intent(MainActivity.this, SignIn.class);
