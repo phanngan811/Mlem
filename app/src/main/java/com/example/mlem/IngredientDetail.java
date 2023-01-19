@@ -1,55 +1,60 @@
 package com.example.mlem;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.mlem.ViewModel.IngredientVM;
+import com.example.mlem.databinding.ActivityIngredientDetailBinding;
 import com.squareup.picasso.Picasso;
 
 public class IngredientDetail extends AppCompatActivity {
 
     IngredientVM ingredientVM;
+    ActivityIngredientDetailBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingredient_detail);
-
-        TextView ingredientName = findViewById(R.id.ingredient_name);
-        TextView ingredientPrice = findViewById(R.id.ingredient_price);
-        TextView ingredientDescription = findViewById(R.id.ingredient_description);
-        ImageView ingredientImg = findViewById(R.id.ingredient_img);
-
-        Button plusBtn = findViewById(R.id.plusBtn);
-        TextView numberText = findViewById(R.id.numberText);
-        Button minusBtn = findViewById(R.id.minusBtn);
-        Button addBtn = findViewById(R.id.addBtn);
+        mBinding = ActivityIngredientDetailBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
         Intent intent = getIntent();
         String ingredientId = intent.getStringExtra("ingredientId");
 
         ingredientVM = new ViewModelProvider(this).get(IngredientVM.class);
-        ingredientVM.setId(ingredientId);
-        ingredientVM.getOne();
 
+        ingredientVM.setId(ingredientId);
+
+        initObservers();
+        initListeners();
+    }
+
+    private void initObservers() {
+        ingredientVM.getId().observe(this, id -> {
+            ingredientVM.getOne();
+        });
         ingredientVM.getIngredient().observe(this, ingredient -> {
-            ingredientName.setText(ingredient.getName());
+            mBinding.ingredientName.setText(ingredient.getName());
             //ingredientDescription.setText(ingredient.getDescription());
-            ingredientPrice.setText(String.valueOf(ingredient.getPrice()));
-            if(ingredient.getImageUrl() != null){
-                Picasso.get().load(ingredient.getImageUrl()).into(ingredientImg);
+            mBinding.ingredientPrice.setText(String.format("%s %s", ingredient.getPrice(), ingredient.getUnit()));
+            if (ingredient.getImageUrl() != null) {
+                Picasso.get().load(ingredient.getImageUrl()).into(mBinding.ingredientImg);
             }
         });
+    }
 
-        //change amount of ingredients to add to cart
-//        public void addAmount() {
-//
-//        }
+    private void initListeners() {
+        mBinding.minusBtn.setOnClickListener(v -> {
+            int curNum = Integer.parseInt(mBinding.numberText.getText().toString());
+            if (curNum <= 1) return;
+            mBinding.numberText.setText(String.valueOf(curNum - 1));
+        });
+        mBinding.plusBtn.setOnClickListener(v -> {
+            int curNum = Integer.parseInt(mBinding.numberText.getText().toString());
+            mBinding.numberText.setText(String.valueOf(curNum + 1));
+        });
     }
 }
