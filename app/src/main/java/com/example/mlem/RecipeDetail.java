@@ -45,6 +45,7 @@ public class RecipeDetail extends AppCompatActivity {
 
     private void initListeners() {
         mBinding.btnAddToCart.setOnClickListener(v -> {
+            mViewModel.addCart();
             Intent intent = new Intent(RecipeDetail.this, OrderSummaryActivity.class);
             startActivity(intent);
         });
