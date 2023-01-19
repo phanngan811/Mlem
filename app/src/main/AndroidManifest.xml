@@ -22,14 +22,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Setting"
-            android:exported="false" >
+            android:name=".SignUpActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".HomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -51,13 +51,6 @@
         </activity>
         <activity
             android:name=".SearchResultActivity"
-            android:exported="false" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".DashBoard"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
