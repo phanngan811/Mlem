@@ -1,7 +1,6 @@
 package com.example.mlem.ViewModel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -9,12 +8,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mlem.Enum.SearchByType;
-import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Model.Recipe;
 import com.example.mlem.Repository.RecipeRepository;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecipeSearchResultVM extends AndroidViewModel {
@@ -30,7 +29,7 @@ public class RecipeSearchResultVM extends AndroidViewModel {
     }
 
     public void search(String query, SearchByType type) {
-        if (query == null) return;
+        if (query == null || query.trim().equals("")) return;
         if (type == SearchByType.NAME) {
             recipeRepository.searchByName(query).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Recipe> list = new ArrayList<>();
@@ -42,7 +41,8 @@ public class RecipeSearchResultVM extends AndroidViewModel {
                 this.result.setValue(list);
             });
         } else {
-            recipeRepository.searchByTag(query).addOnSuccessListener(queryDocumentSnapshots -> {
+            String[] queryList = query.split("\\s+");
+            recipeRepository.searchByTag(Arrays.asList(queryList)).addOnSuccessListener(queryDocumentSnapshots -> {
                 List<Recipe> list = new ArrayList<>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Recipe item = document.toObject(Recipe.class);

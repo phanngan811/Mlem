@@ -7,28 +7,36 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.mlem.ViewModel.LoginViewModel;
-import com.example.mlem.databinding.ActivitySignInBinding;
+import com.example.mlem.ViewModel.SignUpViewModel;
+import com.example.mlem.databinding.ActivitySignUpBinding;
 
-public class SignIn extends AppCompatActivity {
+import java.util.Objects;
 
-    LoginViewModel mViewModel;
-    ActivitySignInBinding mBinding;
+public class SignUpActivity extends AppCompatActivity {
+
+    ActivitySignUpBinding mBinding;
+    SignUpViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = ActivitySignInBinding.inflate(getLayoutInflater());
+        mBinding = ActivitySignUpBinding.inflate(getLayoutInflater());
         View view = mBinding.getRoot();
         setContentView(view);
 
-        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
 
         initListeners();
         initObservers();
     }
 
-    private void initObservers() {
+    public void initListeners() {
+        mBinding.btnConfirm.setOnClickListener(v -> {
+            mViewModel.login(Objects.requireNonNull(mBinding.etEmail.getText()).toString(), Objects.requireNonNull(mBinding.etPassword.getText()).toString());
+        });
+    }
+
+    public void initObservers() {
         int errorBg = getColor(R.color.error);
         int textColor = getColor(R.color.neutral_100);
 
@@ -39,19 +47,15 @@ public class SignIn extends AppCompatActivity {
             mBinding.errorParent.setBackgroundColor(errorBg);
         });
 
-        mViewModel.getLoginSuccess().observe(this, aBoolean -> {
-            if (aBoolean) goToDashboard();
-        });
-    }
-
-    private void initListeners() {
-        mBinding.btnConfirm.setOnClickListener(v -> {
-            mViewModel.login(mBinding.etEmail.getText().toString(), mBinding.etPassword.getText().toString());
+        mViewModel.getRegisterSuccess().observe(this, boo -> {
+            if (boo) {
+                goToDashboard();
+            }
         });
     }
 
     private void goToDashboard() {
-        Intent intent = new Intent(SignIn.this, HomeActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, DashBoard.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

@@ -1,5 +1,7 @@
 package com.example.mlem.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -7,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.Model.Recipe;
+import com.example.mlem.RecipeDetail;
 import com.example.mlem.databinding.RecipeListItemBinding;
 
 import java.util.ArrayList;
@@ -14,9 +17,11 @@ import java.util.List;
 
 public class RecipeRVAdapter extends RecyclerView.Adapter<RecipeRVAdapter.RecipeViewHolder> {
 
+    private final Context context;
     private List<Recipe> recipes;
 
-    public RecipeRVAdapter() {
+    public RecipeRVAdapter(Context context) {
+        this.context = context;
         recipes = new ArrayList<>();
     }
 
@@ -39,6 +44,11 @@ public class RecipeRVAdapter extends RecyclerView.Adapter<RecipeRVAdapter.Recipe
             return;
         }
         holder.mBinding.txtName.setText(recipe.getName());
+        holder.mBinding.parent.setOnClickListener(v -> {
+            Intent intent = new Intent(context, RecipeDetail.class);
+            intent.putExtra("recipeId", recipe.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override

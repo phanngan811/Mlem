@@ -7,7 +7,7 @@
     android:background="@color/green"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".SignIn">
+    tools:context=".SignUpActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -71,8 +71,9 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/neutral_100"
+        android:onClick="onClickConfirm"
         android:padding="15dp"
-        android:text="Sign In"
+        android:text="Sign Up"
         android:textAllCaps="false"
         android:textColor="@color/primary"
         android:textSize="16sp"

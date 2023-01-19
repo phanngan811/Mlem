@@ -9,7 +9,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class RecipeRepository {
     private static final String TAG = RecipeRepository.class.getName();
@@ -55,8 +55,7 @@ public class RecipeRepository {
         return collectionReference.whereEqualTo("name", queryString).get();
     }
 
-    public Task<QuerySnapshot> searchByTag(String queryString) {
-        String[] queryList = queryString.split("\\s+");
-        return collectionReference.whereArrayContainsAny("tagNames", Arrays.asList(queryList)).get();
+    public Task<QuerySnapshot> searchByTag(List<String> queryList) {
+        return collectionReference.whereArrayContainsAny("tagNames", queryList).get();
     }
 }
