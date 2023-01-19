@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.mlem.Adapter.DashboardBlogRVAdapter;
 import com.example.mlem.Adapter.DashboardIngredientRVAdapter;
@@ -103,6 +104,10 @@ public class DashBoard extends AppCompatActivity implements InterfaceGroup {
     public void onClickRecipe(int position) {
         Intent i = new Intent(DashBoard.this, RecipeDetail.class);
         i.putExtra("recipeId", mViewModel.getRecipeResults().getValue().get(position).getId());
+        startActivity(i);
+    }
+    public void onClickSetting(View v){
+        Intent i = new Intent(DashBoard.this, Setting.class);
         startActivity(i);
     }
 }

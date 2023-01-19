@@ -6,4 +6,6 @@ public interface InterfaceGroup {
     void onClickIngredient(int position);
 
     void onClickRecipe(int position);
+
+
 }

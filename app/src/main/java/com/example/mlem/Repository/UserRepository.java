@@ -2,6 +2,7 @@ package com.example.mlem.Repository;
 
 import androidx.annotation.NonNull;
 
+import com.example.mlem.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -9,6 +10,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class UserRepository {
     FirebaseAuth firebaseAuth;
@@ -28,4 +30,9 @@ public class UserRepository {
     public Task<AuthResult> register(String email, String password) {
         return firebaseAuth.createUserWithEmailAndPassword(email, password);
     }
+
+    public void logout() {
+        firebaseAuth.signOut();
+    }
 }
+
