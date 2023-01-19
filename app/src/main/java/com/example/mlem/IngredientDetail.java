@@ -56,5 +56,11 @@ public class IngredientDetail extends AppCompatActivity {
             int curNum = Integer.parseInt(mBinding.numberText.getText().toString());
             mBinding.numberText.setText(String.valueOf(curNum + 1));
         });
+        mBinding.addBtn.setOnClickListener(v -> {
+            int curNum = Integer.parseInt(mBinding.numberText.getText().toString());
+            ingredientVM.addCart(curNum);
+            Intent intent = new Intent(IngredientDetail.this, OrderSummaryActivity.class);
+            startActivity(intent);
+        });
     }
 }

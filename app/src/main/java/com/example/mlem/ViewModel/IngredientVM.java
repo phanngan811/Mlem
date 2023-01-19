@@ -9,19 +9,25 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.mlem.Model.CartItem;
 import com.example.mlem.Model.Ingredient;
+import com.example.mlem.Repository.CartRepository;
 import com.example.mlem.Repository.IngredientRepository;
+import com.example.mlem.Repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientVM extends AndroidViewModel {
     private final IngredientRepository ingredientRepository;
+    private final UserRepository userRepository;
+    private final CartRepository cartRepository;
     private final MutableLiveData<String> id;
     private final MutableLiveData<Ingredient> ingredient;
 
     public IngredientVM(@NonNull Application application) {
         super(application);
         ingredientRepository = new IngredientRepository();
+        userRepository = new UserRepository();
+        cartRepository = new CartRepository();
         id = new MutableLiveData<>("");
         ingredient = new MutableLiveData<>(new Ingredient());
     }
@@ -43,25 +49,37 @@ public class IngredientVM extends AndroidViewModel {
                     if (cartItem == null) return;
                     cartItem.setId(innerSnapshot.getId());
 
-                        if (ingredient == null) return;
-                        ingredient.setId(innerInnerSnapshot.getId());
+                    if (ingredient == null) return;
+                    ingredient.setId(innerInnerSnapshot.getId());
 
-                        cartItem.setIngredient(ingredient);
-                        cart.add(cartItem);
-                        ingredient.setCartItems(cart);
+                    cartItem.setIngredient(ingredient);
+                    cart.add(cartItem);
+                    ingredient.setCartItems(cart);
 
-                        this.ingredient.setValue(ingredient);
+                    this.ingredient.setValue(ingredient);
                 });
             }
         });
     }
 
-    public void setId(String id) {
-        this.id.setValue(id);
+    public void addCart(int amount) {
+        if (ingredient.getValue() == null) return;
+        String userId = userRepository.getUser().getUid();
+        CartItem cartItem = new CartItem();
+        cartItem.setUserId(userId);
+        cartItem.setIngredientId(ingredient.getValue().getId());
+        cartItem.setAmount((double) amount);
+        cartRepository.insert(cartItem);
     }
+
     public LiveData<String> getId() {
         return id;
     }
+
+    public void setId(String id) {
+        this.id.setValue(id);
+    }
+
     public LiveData<Ingredient> getIngredient() {
         return ingredient;
     }
