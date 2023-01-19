@@ -1,47 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="5dp"
-        >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="4dp"
-            >
-            <ImageView
-                android:id="@+id/ingredientImage"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:contentDescription="image"
-                android:src="@mipmap/ic_launcher" />
-        </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/ingredientImage"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="image"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/ingredientName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15px"
+        android:layout_marginTop="15dp"
         android:text="ingredient name"
         android:textAlignment="textStart"
-        android:textStyle="bold"
-        android:textColor="#000"
-        android:textSize="14sp" />
+        android:textColor="@color/neutral_900"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/ingredientPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5px"
+        android:layout_marginTop="5dp"
         android:text="99,999 vnd"
         android:textAlignment="textStart"
-        android:textColor="#808080"
+        android:textColor="@color/neutral_600"
         android:textSize="16sp" />
-
-    </LinearLayout>
+</LinearLayout>

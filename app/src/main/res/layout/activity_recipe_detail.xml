@@ -96,11 +96,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!--    <androidx.recyclerview.widget.RecyclerView-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:orientation="horizontal" />-->
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTags"
                 android:layout_width="match_parent"
