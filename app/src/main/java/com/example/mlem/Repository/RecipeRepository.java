@@ -17,12 +17,10 @@ public class RecipeRepository {
 
     private final FirebaseFirestore firestore;
     private final CollectionReference collectionReference;
-    private final IngredientRepository ingredientRepository;
 
     public RecipeRepository() {
         firestore = FirebaseFirestore.getInstance();
         collectionReference = firestore.collection(collectionPath);
-        ingredientRepository = new IngredientRepository();
     }
 
     public void insert(Recipe recipe) {
