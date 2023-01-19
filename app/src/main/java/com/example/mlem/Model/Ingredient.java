@@ -8,25 +8,27 @@ public class Ingredient {
     private String id;
     private String name;
     private Double price;
+    private String description;
     private String imageUrl;
-    private List<String> tagNames;
     private String unit;
+    private List<String> tagNames;
     private List<String> cartItemIds;
+
     private List<CartItem> cartItems;
 
     public Ingredient() {
     }
 
-    public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl, String unit,
-                      List<CartItem> cartItem,List<String> cartItemIds) {
+    public Ingredient(String id, String name, Double price, String description, String imageUrl, String unit, List<String> tagNames, List<String> cartItemIds, List<CartItem> cartItems) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.tagNames = tagNames;
+        this.description = description;
         this.imageUrl = imageUrl;
         this.unit = unit;
-        this.cartItems = cartItems;
+        this.tagNames = tagNames;
         this.cartItemIds = cartItemIds;
+        this.cartItems = cartItems;
     }
 
     public String getId() {
@@ -53,12 +55,12 @@ public class Ingredient {
         this.price = price;
     }
 
-    public List<String> getTagNames() {
-        return tagNames;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTagNames(List<String> tagNames) {
-        this.tagNames = tagNames;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImageUrl() {
@@ -77,12 +79,12 @@ public class Ingredient {
         this.unit = unit;
     }
 
-    public List<CartItem> getCartItems() {
-        return cartItems;
+    public List<String> getTagNames() {
+        return tagNames;
     }
 
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
+    public void setTagNames(List<String> tagNames) {
+        this.tagNames = tagNames;
     }
 
     public List<String> getCartItemIds() {
@@ -93,6 +95,14 @@ public class Ingredient {
         this.cartItemIds = cartItemIds;
     }
 
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -100,9 +110,12 @@ public class Ingredient {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", tagNames=" + tagNames +
+                ", description='" + description + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", unit='" + unit + '\'' +
+                ", tagNames=" + tagNames +
+                ", cartItemIds=" + cartItemIds +
+                ", cartItems=" + cartItems +
                 '}';
     }
 }

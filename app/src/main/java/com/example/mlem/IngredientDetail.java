@@ -38,7 +38,7 @@ public class IngredientDetail extends AppCompatActivity {
         });
         ingredientVM.getIngredient().observe(this, ingredient -> {
             mBinding.ingredientName.setText(ingredient.getName());
-            //ingredientDescription.setText(ingredient.getDescription());
+            mBinding.ingredientDescription.setText(ingredient.getDescription());
             mBinding.ingredientPrice.setText(String.format("%s %s", ingredient.getPrice(), ingredient.getUnit()));
             if (ingredient.getImageUrl() != null) {
                 Picasso.get().load(ingredient.getImageUrl()).into(mBinding.ingredientImg);

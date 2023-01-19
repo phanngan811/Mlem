@@ -8,7 +8,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class CartRepository {
     private static final String TAG = CartRepository.class.getName();
@@ -16,12 +15,10 @@ public class CartRepository {
 
     private final FirebaseFirestore firestore;
     private final CollectionReference collectionReference;
-    private final IngredientRepository ingredientRepository;
 
     public CartRepository() {
         firestore = FirebaseFirestore.getInstance();
         collectionReference = firestore.collection(collectionPath);
-        ingredientRepository = new IngredientRepository();
     }
 
     public void insert(CartItem cartItem) {

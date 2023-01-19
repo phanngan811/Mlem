@@ -41,21 +41,6 @@ public class BlogRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Error deleting", e));
     }
 
-//    public Blog getOne(String id) {
-//        final Blog[] blog = {new Blog()};
-//        collectionReference.document(id).get()
-//                .addOnSuccessListener(documentSnapshot -> {
-//                    Blog item = documentSnapshot.toObject(Blog.class);
-//                    if (item == null) return;
-//                    item.setId(documentSnapshot.getId());
-//                    blog[0] = item;
-//                })
-//                .addOnFailureListener(e -> {
-//                    Log.e(TAG, "Error getting one " + id, e);
-//                });
-//        return blog[0];
-//    }
-
     public Task<DocumentSnapshot> getOne(String id) {
         return collectionReference.document(id).get();
     }

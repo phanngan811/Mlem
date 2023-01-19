@@ -11,6 +11,7 @@ public class Recipe {
     private List<String> tagNames;
     private List<String> steps;
     private String imageUrl;
+    private String description;
     private String difficulty;
     private String duration;
     private Double rating;
@@ -20,13 +21,14 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String id, String name, List<String> cartItemIds, List<String> tagNames, List<String> steps, String imageUrl, String difficulty, String duration, Double rating, List<CartItem> cartItems) {
+    public Recipe(String id, String name, List<String> cartItemIds, List<String> tagNames, List<String> steps, String imageUrl, String description, String difficulty, String duration, Double rating, List<CartItem> cartItems) {
         this.id = id;
         this.name = name;
         this.cartItemIds = cartItemIds;
         this.tagNames = tagNames;
         this.steps = steps;
         this.imageUrl = imageUrl;
+        this.description = description;
         this.difficulty = difficulty;
         this.duration = duration;
         this.rating = rating;
@@ -81,6 +83,14 @@ public class Recipe {
         this.imageUrl = imageUrl;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getDifficulty() {
         return difficulty;
     }
@@ -123,6 +133,7 @@ public class Recipe {
                 ", tagNames=" + tagNames +
                 ", steps=" + steps +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
                 ", difficulty='" + difficulty + '\'' +
                 ", duration='" + duration + '\'' +
                 ", rating=" + rating +
