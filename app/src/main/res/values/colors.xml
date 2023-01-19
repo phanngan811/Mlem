@@ -13,6 +13,8 @@
 
     <color name="primary">#049b63</color>
     <color name="secondary">#825cec</color>
+    <color name="error">#9b043c</color>
+
     <color name="neutral_100">#f3f4f6</color>
     <color name="neutral_200">#e5e7eb</color>
     <color name="neutral_300">#d1d5db</color>

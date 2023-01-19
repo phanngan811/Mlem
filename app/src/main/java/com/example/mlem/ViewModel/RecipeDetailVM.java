@@ -10,9 +10,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.mlem.Model.CartItem;
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Model.Recipe;
+import com.example.mlem.Model.Tag;
+import com.example.mlem.Repository.BlogRepository;
 import com.example.mlem.Repository.CartRepository;
 import com.example.mlem.Repository.IngredientRepository;
 import com.example.mlem.Repository.RecipeRepository;
+import com.example.mlem.Repository.TagRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ public class RecipeDetailVM extends AndroidViewModel {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final CartRepository cartRepository;
+    private final TagRepository tagRepository;
     private final MutableLiveData<String> id;
     private final MutableLiveData<Recipe> recipe;
 
@@ -29,6 +33,7 @@ public class RecipeDetailVM extends AndroidViewModel {
         recipeRepository = new RecipeRepository();
         ingredientRepository = new IngredientRepository();
         cartRepository = new CartRepository();
+        tagRepository = new TagRepository();
         id = new MutableLiveData<>("");
         recipe = new MutableLiveData<>(new Recipe());
     }
@@ -61,6 +66,7 @@ public class RecipeDetailVM extends AndroidViewModel {
 
                         this.recipe.setValue(recipe);
                     });
+
                 });
             }
         });

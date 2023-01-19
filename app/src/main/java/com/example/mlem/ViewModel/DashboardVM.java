@@ -10,8 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.mlem.Model.Blog;
 import com.example.mlem.Model.Ingredient;
+import com.example.mlem.Model.Recipe;
 import com.example.mlem.Repository.BlogRepository;
 import com.example.mlem.Repository.IngredientRepository;
+import com.example.mlem.Repository.RecipeRepository;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -21,9 +23,11 @@ public class DashboardVM extends AndroidViewModel {
     private static final String TAG = IngredientSearchResultVM.class.getName();
     private IngredientRepository ingredientRepository;
     private BlogRepository blogRepository;
+    private RecipeRepository recipeRepository;
 
     private final MutableLiveData<List<Ingredient>> ingredientResults;
     private final MutableLiveData<List<Blog>> blogResults;
+    private final MutableLiveData<List<Recipe>> recipeResults;
 
     public DashboardVM(@NonNull Application application) {
         super(application);
@@ -31,6 +35,8 @@ public class DashboardVM extends AndroidViewModel {
         blogRepository = new BlogRepository();
         ingredientResults = new MutableLiveData<>();
         blogResults = new MutableLiveData<>();
+        recipeRepository = new RecipeRepository();
+        recipeResults = new MutableLiveData<>();
     }
 
     public void getIngredients() {
@@ -57,8 +63,21 @@ public class DashboardVM extends AndroidViewModel {
         });
     }
 
+    public void getRecipes() {
+        recipeRepository.getAll().addOnSuccessListener(task -> {
+            List<Recipe> list = new ArrayList<>();
+            for (DocumentSnapshot document: task.getDocuments()) {
+                Recipe item = document.toObject(Recipe.class);
+                item.setId(document.getId());
+                list.add(item);
+            }
+            recipeResults.setValue(list);
+        });
+    }
+
     public LiveData<List<Ingredient>> getIngredientResults() {return ingredientResults;}
     public LiveData<List<Blog>> getBlogResults() {return blogResults;}
+    public LiveData<List<Recipe>> getRecipeResults() {return recipeResults;}
 }
 
 

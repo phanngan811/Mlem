@@ -16,7 +16,8 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String content, String author, String recipeId, List<String> tagNames, String imageUrl) {
+    public Blog(String id, String title, String content, String author, String recipeId,
+                List<String> tagNames, String imageUrl) {
         this.id = id;
         this.title = title;
         this.content = content;

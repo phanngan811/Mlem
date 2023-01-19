@@ -11,17 +11,22 @@ public class Ingredient {
     private String imageUrl;
     private List<String> tagNames;
     private String unit;
+    private List<String> cartItemIds;
+    private List<CartItem> cartItems;
 
     public Ingredient() {
     }
 
-    public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl, String unit) {
+    public Ingredient(String id, String name, Double price, List<String> tagNames, String imageUrl, String unit,
+                      List<CartItem> cartItem,List<String> cartItemIds) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.tagNames = tagNames;
         this.imageUrl = imageUrl;
         this.unit = unit;
+        this.cartItems = cartItems;
+        this.cartItemIds = cartItemIds;
     }
 
     public String getId() {
@@ -70,6 +75,22 @@ public class Ingredient {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public List<String> getCartItemIds() {
+        return cartItemIds;
+    }
+
+    public void setCartItemIds(List<String> cartItemIds) {
+        this.cartItemIds = cartItemIds;
     }
 
     @NonNull

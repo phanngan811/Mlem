@@ -11,64 +11,64 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.InterfaceGroup;
-import com.example.mlem.Model.Blog;
+import com.example.mlem.Model.Recipe;
 import com.example.mlem.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class DashboardBlogRVAdapter extends RecyclerView.Adapter<DashboardBlogRVAdapter.RecyclerViewHolder> {
-    private ArrayList<Blog> blogDataArrayList;
+public class DashboardRecipeRVAdapter extends RecyclerView.Adapter<DashboardRecipeRVAdapter.RecyclerViewHolder> {
+    private ArrayList<Recipe> recipeDataArrayList;
     private Context mcontext;
-    private final InterfaceGroup ingredientInterface;
 
-    public DashboardBlogRVAdapter(Context mcontext, InterfaceGroup ingredientInterface) {
+    private final InterfaceGroup interfaceGroup;
+
+    public DashboardRecipeRVAdapter(Context mcontext, InterfaceGroup interfaceGroup) {
         this.mcontext = mcontext;
-        blogDataArrayList = new ArrayList<>();
-        this.ingredientInterface = ingredientInterface;
+        recipeDataArrayList = new ArrayList<>();
+        this.interfaceGroup = interfaceGroup;
     }
-
 
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.featured_item, parent, false);
-        return new RecyclerViewHolder(view, ingredientInterface);
-
+        return new DashboardRecipeRVAdapter.RecyclerViewHolder(view, interfaceGroup);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DashboardBlogRVAdapter.RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         // Set the data to textview and imageview.
-        Blog blogData = blogDataArrayList.get(position);
-        holder.name.setText(blogData.getTitle());
-        if(blogData.getImageUrl() != null){
+        Recipe recipeData = recipeDataArrayList.get(position);
+        holder.name.setText(recipeData.getName());
+        if(recipeData.getImageUrl() != null){
             ImageView imgView = (ImageView) holder.image;
-            Picasso.get().load(blogData.getImageUrl()).into(imgView);
+            Picasso.get().load(recipeData.getImageUrl()).into(imgView);
         }
     }
 
     @Override
     public int getItemCount() {
-        return blogDataArrayList.size();
+        return recipeDataArrayList.size();
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private ImageView image;
 
-        public RecyclerViewHolder(@NonNull View itemView, InterfaceGroup ingredientInterface) {
+        public RecyclerViewHolder(@NonNull View itemView, InterfaceGroup interfaceGroup) {
             super(itemView);
             name = itemView.findViewById(R.id.dashboardItemTitle);
             image = itemView.findViewById(R.id.dashboardItemImage);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(ingredientInterface != null){
+                    if(interfaceGroup != null){
                         int pos = getAdapterPosition();
 
                         if(pos != RecyclerView.NO_POSITION){
-                            ingredientInterface.onClickBlog(pos);
+                            interfaceGroup.onClickRecipe(pos);
                         }
                     }
                 }
@@ -76,8 +76,8 @@ public class DashboardBlogRVAdapter extends RecyclerView.Adapter<DashboardBlogRV
         }
     }
 
-    public void setBlogDataArrayList(ArrayList<Blog> blogDataArrayList) {
-        this.blogDataArrayList = blogDataArrayList;
+    public void setRecipeDataArrayList(ArrayList<Recipe> recipeDataArrayList) {
+        this.recipeDataArrayList = recipeDataArrayList;
         notifyDataSetChanged();
     }
 }

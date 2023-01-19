@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mlem.InterfaceGroup;
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.R;
 import com.example.mlem.helper.Helper;
@@ -29,10 +30,12 @@ public class DashboardIngredientRVAdapter extends RecyclerView.Adapter<Dashboard
 
     private ArrayList<Ingredient> ingredientDataArrayList;
     private Context mcontext;
+    private final InterfaceGroup ingredientInterface;
 
-    public DashboardIngredientRVAdapter(Context mcontext) {
+    public DashboardIngredientRVAdapter(Context mcontext, InterfaceGroup ingredientInterface) {
         ingredientDataArrayList = new ArrayList<>();
         this.mcontext = mcontext;
+        this.ingredientInterface = ingredientInterface;
     }
 
     @NonNull
@@ -40,7 +43,7 @@ public class DashboardIngredientRVAdapter extends RecyclerView.Adapter<Dashboard
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate Layout
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(view, ingredientInterface);
     }
 
     @Override
@@ -70,11 +73,23 @@ public class DashboardIngredientRVAdapter extends RecyclerView.Adapter<Dashboard
         private ImageView image;
         private TextView price;
 
-        public RecyclerViewHolder(@NonNull View itemView) {
+        public RecyclerViewHolder(@NonNull View itemView, InterfaceGroup ingredientInterface) {
             super(itemView);
             name = itemView.findViewById(R.id.ingredientName);
             image = itemView.findViewById(R.id.ingredientImage);
             price = itemView.findViewById(R.id.ingredientPrice);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(ingredientInterface != null){
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            ingredientInterface.onClickIngredient(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -82,5 +97,4 @@ public class DashboardIngredientRVAdapter extends RecyclerView.Adapter<Dashboard
         this.ingredientDataArrayList = ingredientArrayList;
         notifyDataSetChanged();
     }
-
 }
