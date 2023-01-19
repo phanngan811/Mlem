@@ -20,7 +20,7 @@ public class OrderCompleteActivity extends AppCompatActivity {
     }
 
     private void goToDashboard() {
-        Intent intent = new Intent(OrderCompleteActivity.this, DashBoard.class);
+        Intent intent = new Intent(OrderCompleteActivity.this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
