@@ -1,91 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BlogDetail">
 
-    <TextView
-        android:id="@+id/blogNameText"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Blog name"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="25dp" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/blogNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="30dp"
+                android:text="Blog name"
+                android:textAlignment="center"
+                android:textColor="@color/neutral_900"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="by "
+                    android:textColor="@color/neutral_800"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/authorNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="John Doe"
+                    android:textColor="@color/neutral_800"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/dishImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="40dp"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/dishDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="15dp"
+                android:text="description"
+                android:textColor="@color/neutral_700"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="196dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.5"
-            android:text="By: "
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
-
-        <TextView
-            android:id="@+id/authorNameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="John Doe"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/dishImage"
-        android:layout_width="match_parent"
-        android:layout_height="234dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-    <TextView
-        android:id="@+id/dishDescriptionText"
-        android:layout_width="match_parent"
-        android:layout_height="278dp"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:text="description" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="20dp"
+        android:background="@color/neutral_200"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="20dp">
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="355dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:text="View Recipe" />
+            android:text="View Recipe"
+            android:textColor="@color/neutral_900"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/viewRecipeBtn"
-            android:layout_width="42dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/mlemmm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_right_arrow"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 </LinearLayout>

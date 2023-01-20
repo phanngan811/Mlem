@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mlem.Model.Recipe;
 import com.example.mlem.RecipeDetail;
 import com.example.mlem.databinding.RecipeListItemBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,9 @@ public class RecipeRVAdapter extends RecyclerView.Adapter<RecipeRVAdapter.Recipe
             intent.putExtra("recipeId", recipe.getId());
             context.startActivity(intent);
         });
+        if (recipe.getImageUrl() != null) {
+            Picasso.get().load(recipe.getImageUrl()).into(holder.mBinding.ingredientImage);
+        }
     }
 
     @Override
