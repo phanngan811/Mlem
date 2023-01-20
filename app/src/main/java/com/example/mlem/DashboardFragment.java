@@ -1,6 +1,8 @@
 package com.example.mlem;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -80,7 +82,7 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
 
     private void initObservers() {
         mViewModel.getIngredients();
-        mViewModel.getBlogs();
+//        mViewModel.getBlogs();
         mViewModel.getRecipes();
 
 
@@ -93,7 +95,7 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
         mViewModel.getBlogResults().observe(getActivity(), new Observer<List<Blog>>() {
             @Override
             public void onChanged(List<Blog> blogs) {
-                blogAdapter.setBlogDataArrayList((ArrayList<Blog>) blogs);
+//                blogAdapter.setBlogDataArrayList((ArrayList<Blog>) blogs);
             }
         });
         mViewModel.getRecipeResults().observe(getActivity(), new Observer<List<Recipe>>() {
@@ -159,4 +161,6 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
         i.putExtra("recipeId", mViewModel.getRecipeResults().getValue().get(position).getId());
         startActivity(i);
     }
+
+
 }

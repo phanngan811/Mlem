@@ -1,6 +1,8 @@
 package com.example.mlem;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,8 @@ public class IngredientDetail extends AppCompatActivity {
 
     IngredientVM ingredientVM;
     ActivityIngredientDetailBinding mBinding;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,18 @@ public class IngredientDetail extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
 
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
     private void initListeners() {
         mBinding.minusBtn.setOnClickListener(v -> {
             int curNum = Integer.parseInt(mBinding.numberText.getText().toString());

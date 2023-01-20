@@ -1,6 +1,8 @@
 package com.example.mlem;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +21,8 @@ import java.util.Objects;
 
 public class BlogDetail extends AppCompatActivity {
     private BlogVM blogVM;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +62,18 @@ public class BlogDetail extends AppCompatActivity {
             i.putExtra("recipeId", Objects.requireNonNull(blogVM.getBlog().getValue()).getRecipeId());
             startActivity(i);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

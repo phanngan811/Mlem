@@ -3,11 +3,14 @@ package com.example.mlem;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +28,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import java.util.Objects;
 
 
 public class SettingsFragment extends Fragment {
@@ -63,6 +68,7 @@ public class SettingsFragment extends Fragment {
 
         return mView;
     }
+
 
 
     private void initObservers() {
@@ -125,4 +131,6 @@ public class SettingsFragment extends Fragment {
         startActivity(intent);
 
     }
+
+
 }
