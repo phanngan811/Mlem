@@ -19,25 +19,30 @@
             android:layout_marginBottom="30dp"
             android:orientation="horizontal" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:padding="0dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/svSearchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Search"
+                android:background="@drawable/btn_shape_rectangle"
                 android:hint="Search"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
+                android:textColorHint="@color/neutral_400" />
+        </androidx.cardview.widget.CardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
             android:layout_marginBottom="30dp"
             android:backgroundTint="@color/secondary"
             android:paddingHorizontal="40dp"
@@ -64,7 +69,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRecipes"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
