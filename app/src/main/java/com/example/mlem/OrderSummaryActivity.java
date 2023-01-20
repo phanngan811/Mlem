@@ -46,7 +46,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
             mRVAdapter.setCart(result);
         });
         mViewModel.getTotal().observe(this, total -> {
-            mBinding.txtPrice.setText(String.valueOf(total));
+            mBinding.txtPrice.setText(total);
         });
     }
 
