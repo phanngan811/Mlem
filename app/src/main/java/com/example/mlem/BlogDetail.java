@@ -1,22 +1,23 @@
 package com.example.mlem;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mlem.ViewModel.BlogVM;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class BlogDetail extends AppCompatActivity {
     private BlogVM blogVM;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,6 @@ public class BlogDetail extends AppCompatActivity {
 
         TextView blogName = findViewById(R.id.blogNameText);
         TextView authorName = findViewById(R.id.authorNameText);
-        RatingBar rating = findViewById(R.id.ratingBar);
         TextView blogDescription = findViewById(R.id.dishDescriptionText);
         ImageView dishImg = findViewById(R.id.dishImage);
 
@@ -40,18 +40,17 @@ public class BlogDetail extends AppCompatActivity {
             blogName.setText(blog.getTitle());
             blogDescription.setText(blog.getContent());
             authorName.setText(blog.getAuthor());
-            if(blog.getImageUrl() != null){
+            if (blog.getImageUrl() != null) {
                 Picasso.get().load(blog.getImageUrl()).into(dishImg);
             }
         });
 
         viewRecipeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v) {
+            public void onClick(View v) {
                 Intent i = new Intent(BlogDetail.this, RecipeDetail.class);
-                i.putExtra("recipeId", blogVM.getBlog().getValue().getRecipeId());
+                i.putExtra("recipeId", Objects.requireNonNull(blogVM.getBlog().getValue()).getRecipeId());
                 startActivity(i);
-                finish();
             }
         });
     }
