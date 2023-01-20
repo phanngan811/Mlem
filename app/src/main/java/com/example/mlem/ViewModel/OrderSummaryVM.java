@@ -69,6 +69,13 @@ public class OrderSummaryVM extends AndroidViewModel {
         });
     }
 
+    public void removeAllCart() {
+        if (result.getValue() == null) return;
+        for (CartItem i : result.getValue()) {
+            cartRepository.delete(i);
+        }
+    }
+
     private void calcTotal() {
         double total = 0;
         for (CartItem cartItem : Objects.requireNonNull(result.getValue())) {
@@ -80,6 +87,7 @@ public class OrderSummaryVM extends AndroidViewModel {
     public LiveData<List<CartItem>> getResult() {
         return result;
     }
+
     public LiveData<Double> getTotal() {
         return total;
     }

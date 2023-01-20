@@ -35,6 +35,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
 
     private void initListeners() {
         mBinding.btnConfirm.setOnClickListener(v -> {
+            mViewModel.removeAllCart();
             Intent intent = new Intent(OrderSummaryActivity.this, OrderCompleteActivity.class);
             startActivity(intent);
         });
