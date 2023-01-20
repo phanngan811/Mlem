@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mlem.Adapter.DashboardBlogRVAdapter;
 import com.example.mlem.Adapter.DashboardIngredientRVAdapter;
@@ -99,6 +100,15 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
             @Override
             public void onChanged(List<Recipe> recipes) {
                 recipeAdapter.setRecipeDataArrayList((ArrayList<Recipe>) recipes);
+            }
+        });
+
+        Button makeADishBtn = (Button) mView.findViewById(R.id.make_dish_btn);
+        makeADishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mView.getContext(), MakeMeADishActivity.class);
+                startActivity(intent);
             }
         });
     }
