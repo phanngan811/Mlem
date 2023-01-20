@@ -3,15 +3,7 @@ package com.example.mlem;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.mlem.Model.Tag;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.mlem.ViewModel.SettingVM;
 import com.example.mlem.databinding.FragmentSettingsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,8 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-
-import java.util.Objects;
 
 
 public class SettingsFragment extends Fragment {
@@ -70,17 +63,17 @@ public class SettingsFragment extends Fragment {
     }
 
 
-
     private void initObservers() {
 
-        Button btnLogout = (Button) mView.findViewById(R.id.btnLogout);
-        EditText editTextName = (EditText) mView.findViewById(R.id.edit_text_name);
+        Button btnLogout = mView.findViewById(R.id.btnLogout);
+        EditText editTextName = mView.findViewById(R.id.edit_text_name);
+        Button saveBtn = mView.findViewById(R.id.btnSave);
 
 
         String displayName = user.getDisplayName();
-        if(displayName.equals("")) {
+        if (displayName.equals("")) {
             Log.d("-----------USER NAME NOT EXIST-----------", user.getDisplayName());
-        }else {
+        } else {
             Log.d("-----------USER NAME EXIST-----------", user.getDisplayName());
             editTextName.setText(user.getDisplayName());
         }
@@ -90,6 +83,14 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
                 settingVM.logout();
                 goToDashboard();
+            }
+        });
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateName();
+                Toast.makeText(mView.getContext(), "Successfully add Preferences", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

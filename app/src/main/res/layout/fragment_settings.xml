@@ -39,6 +39,14 @@
                 android:inputType="textPersonName"
                 android:padding="10pt" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSave"
+                android:layout_width="40pt"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15pt"
+                android:background="@drawable/btn_shape2"
+                android:text="Save" />
+
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
