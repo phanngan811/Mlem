@@ -25,6 +25,9 @@ public class BlogDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_detail);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         TextView blogName = findViewById(R.id.blogNameText);
         TextView authorName = findViewById(R.id.authorNameText);
         RecyclerView blogParagraphs = findViewById(R.id.rvParagraphs);
@@ -39,6 +42,9 @@ public class BlogDetail extends AppCompatActivity {
         blogVM.setId(blogId);
         blogVM.getOne();
         blogVM.getBlog().observe(this, blog -> {
+            assert getSupportActionBar() != null;
+            getSupportActionBar().setTitle(blog.getTitle());
+
             blogName.setText(blog.getTitle());
             authorName.setText(blog.getAuthor());
             if (blog.getImageUrl() != null) {
@@ -58,5 +64,11 @@ public class BlogDetail extends AppCompatActivity {
             i.putExtra("recipeId", Objects.requireNonNull(blogVM.getBlog().getValue()).getRecipeId());
             startActivity(i);
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

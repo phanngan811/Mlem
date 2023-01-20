@@ -29,6 +29,9 @@ public class RecipeDetail extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         // get id from intent from the recycler view adapter
         Intent intent = getIntent();
         String recipeId = intent.getStringExtra("recipeId");
@@ -54,10 +57,14 @@ public class RecipeDetail extends AppCompatActivity {
     private void initObservers() {
         mViewModel.getRecipe().observe(this, recipe -> {
             mBinding.tvTitle.setText(recipe.getName());
+
+            assert getSupportActionBar() != null;   //null check
+            getSupportActionBar().setTitle(recipe.getName());
+
             mBinding.tvTime.setText(recipe.getDuration());
             mBinding.tvDifficulty.setText(recipe.getDifficulty());
             mBinding.tvRating.setText(String.valueOf(recipe.getRating()));
-            if( recipe.getImageUrl() != null){
+            if (recipe.getImageUrl() != null) {
                 Picasso.get().load(recipe.getImageUrl()).into(mBinding.imageView2);
             }
             if (recipe.getCartItems() != null) {
@@ -66,7 +73,7 @@ public class RecipeDetail extends AppCompatActivity {
             if (recipe.getSteps() != null) {
                 mStepRVAdapter.setSteps(recipe.getSteps());
             }
-            if (recipe.getTagNames() != null){
+            if (recipe.getTagNames() != null) {
                 mTagRVAdapter.setTags(recipe.getTagNames());
             }
         });
@@ -87,5 +94,11 @@ public class RecipeDetail extends AppCompatActivity {
         mBinding.rvTags.setLayoutManager(tagLayoutManager);
         mTagRVAdapter = new RecipeTagRVAdapter();
         mBinding.rvTags.setAdapter(mTagRVAdapter);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

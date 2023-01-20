@@ -22,6 +22,10 @@ public class SignIn extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setTitle("Sign In");
+
         mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         initListeners();
@@ -54,5 +58,11 @@ public class SignIn extends AppCompatActivity {
         Intent intent = new Intent(SignIn.this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

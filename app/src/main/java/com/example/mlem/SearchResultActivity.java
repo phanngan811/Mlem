@@ -37,6 +37,10 @@ public class SearchResultActivity extends AppCompatActivity implements AdapterVi
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setTitle("Search");
+
         searchQuery = new MutableLiveData<>();
         searchByType = new MutableLiveData<>();
 
@@ -147,5 +151,11 @@ public class SearchResultActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

@@ -28,6 +28,10 @@ public class MakeMeADishActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setTitle("Make me a dish");
+
         mViewModel = new ViewModelProvider(this).get(MakeMeADishVM.class);
 
         initAdapters();
@@ -67,5 +71,11 @@ public class MakeMeADishActivity extends AppCompatActivity {
         mBinding.rvRecipes.setLayoutManager(linearLayoutManager1);
         mRecipeRVAdapter = new MMADRecipeRVAdapter(this);
         mBinding.rvRecipes.setAdapter(mRecipeRVAdapter);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
