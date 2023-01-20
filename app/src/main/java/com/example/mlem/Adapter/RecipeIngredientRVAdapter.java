@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.Model.CartItem;
 import com.example.mlem.databinding.ItemRecipeIngredientBinding;
-import com.example.mlem.helper.Helper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class RecipeIngredientRVAdapter extends RecyclerView.Adapter<RecipeIngred
             return;
         }
         holder.binding.tvName.setText(cartItem.getIngredient().getName());
-        holder.binding.tvAmount.setText(String.format("%s%s", cartItem.getAmount(), cartItem.getIngredient().getUnit() != null ? " " + cartItem.getIngredient().getUnit() : ""));
+        holder.binding.tvAmount.setText(String.format("%s %s", cartItem.getAmount(), "units"));
         if (cartItem.getIngredient().getImageUrl() != null) {
             Picasso.get().load(cartItem.getIngredient().getImageUrl()).into(holder.binding.image);
         }

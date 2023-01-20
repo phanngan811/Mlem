@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mlem.Model.CartItem;
 import com.example.mlem.databinding.CartItemBinding;
 import com.example.mlem.helper.Helper;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +41,12 @@ public class CartRVAdapter extends RecyclerView.Adapter<CartRVAdapter.CartViewHo
             return;
         }
         holder.binding.txtIngredientName.setText(cartItem.getIngredient().getName());
-        holder.binding.txtAmount.setText(Helper.CurrencyFormatter(cartItem.getAmount()));
+        holder.binding.txtAmount.setText(String.valueOf(cartItem.getAmount()));
         holder.binding.txtPrice.setText(Helper.CurrencyFormatter(cartItem.getIngredient().getPrice() * cartItem.getAmount()));
-        holder.binding.txtUnit.setText(cartItem.getIngredient().getUnit());
+        holder.binding.txtUnit.setText("units");
+        if (cartItem.getIngredient().getImageUrl() != null) {
+            Picasso.get().load(cartItem.getIngredient().getImageUrl()).into(holder.binding.ingredientImage);
+        }
     }
 
     @Override
