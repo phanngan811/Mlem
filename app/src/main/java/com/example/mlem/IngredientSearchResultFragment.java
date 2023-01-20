@@ -60,7 +60,7 @@ public class IngredientSearchResultFragment extends Fragment {
     private void initAdapters() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mView.getContext(), 2);
         mBinding.rvResult.setLayoutManager(gridLayoutManager);
-        mRVAdapter = new IngredientRVAdapter();
+        mRVAdapter = new IngredientRVAdapter(mView.getContext());
         mBinding.rvResult.setAdapter(mRVAdapter);
     }
 }

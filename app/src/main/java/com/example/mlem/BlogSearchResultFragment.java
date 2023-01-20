@@ -60,7 +60,7 @@ public class BlogSearchResultFragment extends Fragment {
     private void initAdapters() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mView.getContext());
         mBinding.rvResult.setLayoutManager(linearLayoutManager);
-        mRVAdapter = new BlogRVAdapter();
+        mRVAdapter = new BlogRVAdapter(mView.getContext());
         mBinding.rvResult.setAdapter(mRVAdapter);
     }
 }
