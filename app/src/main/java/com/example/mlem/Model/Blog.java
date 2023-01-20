@@ -7,7 +7,7 @@ import java.util.List;
 public class Blog {
     private String id;
     private String title;
-    private String content;
+    private List<String> content;
     private String author;
     private String recipeId;
     private List<String> tagNames;
@@ -16,8 +16,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String content, String author, String recipeId,
-                List<String> tagNames, String imageUrl) {
+    public Blog(String id, String title, List<String> content, String author, String recipeId, List<String> tagNames, String imageUrl) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -43,11 +42,11 @@ public class Blog {
         this.title = title;
     }
 
-    public String getContent() {
+    public List<String> getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(List<String> content) {
         this.content = content;
     }
 
@@ -89,7 +88,7 @@ public class Blog {
         return "Blog{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
+                ", content=" + content +
                 ", author='" + author + '\'' +
                 ", recipeId='" + recipeId + '\'' +
                 ", tagNames=" + tagNames +
