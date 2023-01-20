@@ -20,9 +20,8 @@ import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
 public class BlogDetail extends AppCompatActivity {
-    private BlogVM blogVM;
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
-
+    private BlogVM blogVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +73,9 @@ public class BlogDetail extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
 
+    @Override
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);
