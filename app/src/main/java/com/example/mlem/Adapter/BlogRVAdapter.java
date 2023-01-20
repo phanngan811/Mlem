@@ -46,7 +46,7 @@ public class BlogRVAdapter extends RecyclerView.Adapter<BlogRVAdapter.BlogViewHo
         }
         holder.binding.txtTitle.setText(blog.getTitle());
         holder.binding.txtAuthor.setText(blog.getAuthor());
-        holder.binding.txtPreview.setText(blog.getContent());
+        holder.binding.txtPreview.setText(blog.getContent().get(0));
         if (blog.getImageUrl() != null) {
             Picasso.get().load(blog.getImageUrl()).into(holder.binding.ingredientImage);
         }

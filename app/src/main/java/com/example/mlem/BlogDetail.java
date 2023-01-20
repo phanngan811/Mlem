@@ -8,7 +8,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mlem.Adapter.BlogParagraphRVAdapter;
 import com.example.mlem.ViewModel.BlogVM;
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +27,7 @@ public class BlogDetail extends AppCompatActivity {
 
         TextView blogName = findViewById(R.id.blogNameText);
         TextView authorName = findViewById(R.id.authorNameText);
-        TextView blogDescription = findViewById(R.id.dishDescriptionText);
+        RecyclerView blogParagraphs = findViewById(R.id.rvParagraphs);
         ImageView dishImg = findViewById(R.id.dishImage);
 
         LinearLayout viewRecipeBtn = findViewById(R.id.btnToRecipe);
@@ -37,16 +40,22 @@ public class BlogDetail extends AppCompatActivity {
         blogVM.getOne();
         blogVM.getBlog().observe(this, blog -> {
             blogName.setText(blog.getTitle());
-            blogDescription.setText(blog.getContent());
             authorName.setText(blog.getAuthor());
             if (blog.getImageUrl() != null) {
                 Picasso.get().load(blog.getImageUrl()).into(dishImg);
             }
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            blogParagraphs.setLayoutManager(linearLayoutManager);
+            BlogParagraphRVAdapter adapter = new BlogParagraphRVAdapter();
+            blogParagraphs.setAdapter(adapter);
+            if (blog.getContent() != null) {
+                adapter.setParagraphs(blog.getContent());
+            }
         });
 
         viewRecipeBtn.setOnClickListener(v -> {
-            Intent i = new Intent(this, RecipeDetail.class);
-            i.putExtra("recipeId", Objects.requireNonNull(blogVM.getBlog().getValue()).getId());
+            Intent i = new Intent(BlogDetail.this, RecipeDetail.class);
+            i.putExtra("recipeId", Objects.requireNonNull(blogVM.getBlog().getValue()).getRecipeId());
             startActivity(i);
         });
     }
