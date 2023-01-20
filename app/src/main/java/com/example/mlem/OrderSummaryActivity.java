@@ -41,6 +41,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
 
     private void initListeners() {
         mBinding.btnConfirm.setOnClickListener(v -> {
+            mViewModel.removeAllCart();
             Intent intent = new Intent(OrderSummaryActivity.this, OrderCompleteActivity.class);
             startActivity(intent);
         });
@@ -51,7 +52,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
             mRVAdapter.setCart(result);
         });
         mViewModel.getTotal().observe(this, total -> {
-            mBinding.txtPrice.setText(String.valueOf(total));
+            mBinding.txtPrice.setText(total);
         });
     }
 

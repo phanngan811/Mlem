@@ -13,6 +13,7 @@ import com.example.mlem.Model.Ingredient;
 import com.example.mlem.Repository.CartRepository;
 import com.example.mlem.Repository.IngredientRepository;
 import com.example.mlem.Repository.UserRepository;
+import com.example.mlem.helper.Helper;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class OrderSummaryVM extends AndroidViewModel {
     private final UserRepository userRepository;
     private final IngredientRepository ingredientRepository;
     private final MutableLiveData<List<CartItem>> result;
-    private final MutableLiveData<Double> total;
+    private final MutableLiveData<String> total;
 
     public OrderSummaryVM(@NonNull Application application) {
         super(application);
@@ -34,7 +35,7 @@ public class OrderSummaryVM extends AndroidViewModel {
         userRepository = new UserRepository();
         ingredientRepository = new IngredientRepository();
         result = new MutableLiveData<>(new ArrayList<>());
-        total = new MutableLiveData<>((double) 0);
+        total = new MutableLiveData<>("0");
     }
 
     public void getCart() {
@@ -69,18 +70,26 @@ public class OrderSummaryVM extends AndroidViewModel {
         });
     }
 
+    public void removeAllCart() {
+        if (result.getValue() == null) return;
+        for (CartItem i : result.getValue()) {
+            cartRepository.delete(i);
+        }
+    }
+
     private void calcTotal() {
         double total = 0;
         for (CartItem cartItem : Objects.requireNonNull(result.getValue())) {
             total += cartItem.getIngredient().getPrice() * cartItem.getAmount();
         }
-        this.total.setValue(total);
+        this.total.setValue(Helper.CurrencyFormatter(total));
     }
 
     public LiveData<List<CartItem>> getResult() {
         return result;
     }
-    public LiveData<Double> getTotal() {
+
+    public LiveData<String> getTotal() {
         return total;
     }
 }
