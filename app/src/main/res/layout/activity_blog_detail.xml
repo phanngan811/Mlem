@@ -77,6 +77,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/btnToRecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -90,7 +91,6 @@
         android:paddingVertical="20dp">
 
         <TextView
-            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View Recipe"
@@ -104,11 +104,10 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/viewRecipeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:src="@drawable/ic_right_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:contentDescription="Go to recipe"
+            android:src="@drawable/ic_right_arrow" />
     </LinearLayout>
 </LinearLayout>

@@ -2,9 +2,8 @@ package com.example.mlem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +27,7 @@ public class BlogDetail extends AppCompatActivity {
         TextView blogDescription = findViewById(R.id.dishDescriptionText);
         ImageView dishImg = findViewById(R.id.dishImage);
 
-        ImageButton viewRecipeBtn = findViewById(R.id.viewRecipeBtn);
+        LinearLayout viewRecipeBtn = findViewById(R.id.btnToRecipe);
 
         Intent intent = getIntent();
         String blogId = intent.getStringExtra("blogId");
@@ -45,13 +44,10 @@ public class BlogDetail extends AppCompatActivity {
             }
         });
 
-        viewRecipeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(BlogDetail.this, RecipeDetail.class);
-                i.putExtra("recipeId", Objects.requireNonNull(blogVM.getBlog().getValue()).getRecipeId());
-                startActivity(i);
-            }
+        viewRecipeBtn.setOnClickListener(v -> {
+            Intent i = new Intent(this, RecipeDetail.class);
+            i.putExtra("recipeId", Objects.requireNonNull(blogVM.getBlog().getValue()).getId());
+            startActivity(i);
         });
     }
 }
