@@ -73,8 +73,6 @@ public class SettingsFragment extends Fragment {
 
     private void initObservers() {
 
-        Button saveBtn = (Button) mView.findViewById(R.id.btnSave);
-        EditText editTextTag = (EditText) mView.findViewById(R.id.editTag);
         Button btnLogout = (Button) mView.findViewById(R.id.btnLogout);
         EditText editTextName = (EditText) mView.findViewById(R.id.edit_text_name);
 
@@ -87,16 +85,6 @@ public class SettingsFragment extends Fragment {
             editTextName.setText(user.getDisplayName());
         }
 
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                settingVM.insertTag(new Tag("0", editTextTag.getText().toString()));
-                updateName();
-                Toast.makeText(mView.getContext(),"Successfully add Preferences",Toast.LENGTH_SHORT).show();
-
-            }
-        });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
