@@ -31,6 +31,10 @@ public class MakeMeADishActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setTitle("Make me a dish");
+
         mViewModel = new ViewModelProvider(this).get(MakeMeADishVM.class);
 
         initAdapters();
@@ -73,6 +77,10 @@ public class MakeMeADishActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);

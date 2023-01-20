@@ -25,6 +25,9 @@ public class IngredientDetail extends AppCompatActivity {
         mBinding = ActivityIngredientDetailBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         Intent intent = getIntent();
         String ingredientId = intent.getStringExtra("ingredientId");
 
@@ -41,6 +44,9 @@ public class IngredientDetail extends AppCompatActivity {
             ingredientVM.getOne();
         });
         ingredientVM.getIngredient().observe(this, ingredient -> {
+            assert getSupportActionBar() != null;
+            getSupportActionBar().setTitle(ingredient.getName());
+
             mBinding.ingredientName.setText(ingredient.getName());
             mBinding.ingredientDescription.setText(ingredient.getDescription());
             mBinding.ingredientPrice.setText(String.format("%s %s", ingredient.getPrice(), ingredient.getUnit()));
@@ -77,5 +83,11 @@ public class IngredientDetail extends AppCompatActivity {
             Intent intent = new Intent(IngredientDetail.this, OrderSummaryActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

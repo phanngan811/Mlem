@@ -25,6 +25,10 @@ public class SignIn extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setTitle("Sign In");
+
         mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         initListeners();
@@ -59,6 +63,12 @@ public class SignIn extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+    
     @Override
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);

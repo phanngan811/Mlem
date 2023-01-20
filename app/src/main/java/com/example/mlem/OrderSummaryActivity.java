@@ -27,6 +27,9 @@ public class OrderSummaryActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setTitle("Order Summary");
 
         mViewModel = new ViewModelProvider(this).get(OrderSummaryVM.class);
         mViewModel.getCart();
@@ -60,6 +63,10 @@ public class OrderSummaryActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);

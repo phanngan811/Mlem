@@ -27,6 +27,10 @@ public class SignUpActivity extends AppCompatActivity {
         View view = mBinding.getRoot();
         setContentView(view);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setTitle("Sign Up");
+
         mViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
 
         initListeners();
@@ -63,6 +67,12 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+     
     @Override
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);

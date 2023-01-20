@@ -29,6 +29,9 @@ public class BlogDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_detail);
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         TextView blogName = findViewById(R.id.blogNameText);
         TextView authorName = findViewById(R.id.authorNameText);
         RecyclerView blogParagraphs = findViewById(R.id.rvParagraphs);
@@ -43,6 +46,9 @@ public class BlogDetail extends AppCompatActivity {
         blogVM.setId(blogId);
         blogVM.getOne();
         blogVM.getBlog().observe(this, blog -> {
+            assert getSupportActionBar() != null;
+            getSupportActionBar().setTitle(blog.getTitle());
+
             blogName.setText(blog.getTitle());
             authorName.setText(blog.getAuthor());
             if (blog.getImageUrl() != null) {
@@ -65,6 +71,10 @@ public class BlogDetail extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);
