@@ -1,22 +1,18 @@
 package com.example.mlem;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.mlem.Adapter.DashboardBlogRVAdapter;
 import com.example.mlem.Adapter.DashboardIngredientRVAdapter;
@@ -37,13 +33,13 @@ import java.util.List;
  */
 public class DashboardFragment extends Fragment implements InterfaceGroup {
 
+    DashboardIngredientRVAdapter ingredientAdapter;
+    DashboardBlogRVAdapter blogAdapter;
+    DashboardRecipeRVAdapter recipeAdapter;
     private RecyclerView ingredientsRv;
     private RecyclerView blogsRv;
     private RecyclerView recipeRv;
     private DashboardVM mViewModel;
-    DashboardIngredientRVAdapter ingredientAdapter;
-    DashboardBlogRVAdapter blogAdapter;
-    DashboardRecipeRVAdapter recipeAdapter;
     private View mView;
     private FragmentDashboardBinding mBinding;
 
@@ -82,7 +78,7 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
 
     private void initObservers() {
         mViewModel.getIngredients();
-//        mViewModel.getBlogs();
+        mViewModel.getBlogs();
         mViewModel.getRecipes();
 
 
@@ -95,7 +91,7 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
         mViewModel.getBlogResults().observe(getActivity(), new Observer<List<Blog>>() {
             @Override
             public void onChanged(List<Blog> blogs) {
-//                blogAdapter.setBlogDataArrayList((ArrayList<Blog>) blogs);
+                blogAdapter.setBlogDataArrayList((ArrayList<Blog>) blogs);
             }
         });
         mViewModel.getRecipeResults().observe(getActivity(), new Observer<List<Recipe>>() {
@@ -105,7 +101,7 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
             }
         });
 
-        Button makeADishBtn = (Button) mView.findViewById(R.id.make_dish_btn);
+        Button makeADishBtn = mView.findViewById(R.id.make_dish_btn);
         makeADishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,7 +119,7 @@ public class DashboardFragment extends Fragment implements InterfaceGroup {
 
         // setting grid layout manager to implement grid view.
         // in this method '2' represents number of columns to be displayed in grid view.
-        GridLayoutManager ingredientListLayoutManager=new GridLayoutManager(getActivity(),2);
+        GridLayoutManager ingredientListLayoutManager = new GridLayoutManager(getActivity(), 2);
 
         // at last set adapter to recycler view.
         ingredientsRv.setLayoutManager(ingredientListLayoutManager);
