@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.Model.Blog;
 import com.example.mlem.databinding.BlogListItemBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,9 @@ public class BlogRVAdapter extends RecyclerView.Adapter<BlogRVAdapter.BlogViewHo
         holder.binding.txtTitle.setText(blog.getTitle());
         holder.binding.txtAuthor.setText(blog.getAuthor());
         holder.binding.txtPreview.setText(blog.getContent());
+        if (blog.getImageUrl() != null) {
+            Picasso.get().load(blog.getImageUrl()).into(holder.binding.ingredientImage);
+        }
     }
 
     @Override

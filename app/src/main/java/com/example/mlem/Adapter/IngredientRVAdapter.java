@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlem.Model.Ingredient;
 import com.example.mlem.databinding.CardLayoutBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,9 @@ public class IngredientRVAdapter extends RecyclerView.Adapter<IngredientRVAdapte
         }
         holder.binding.ingredientName.setText(ingredient.getName());
         holder.binding.ingredientPrice.setText(String.valueOf(ingredient.getPrice()));
+        if (ingredient.getImageUrl() != null) {
+            Picasso.get().load(ingredient.getImageUrl()).into(holder.binding.ingredientImage);
+        }
     }
 
     @Override
