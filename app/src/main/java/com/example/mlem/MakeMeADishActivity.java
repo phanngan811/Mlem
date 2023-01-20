@@ -5,11 +5,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mlem.Adapter.RecipeRVAdapter;
+import com.example.mlem.Adapter.MMADRecipeRVAdapter;
 import com.example.mlem.Adapter.TagChipRVAdapter;
 import com.example.mlem.ViewModel.MakeMeADishVM;
 import com.example.mlem.databinding.ActivityMakeMeAdishBinding;
@@ -19,7 +18,7 @@ import java.util.Objects;
 public class MakeMeADishActivity extends AppCompatActivity {
     ActivityMakeMeAdishBinding mBinding;
     TagChipRVAdapter mChipRVAdapter;
-    RecipeRVAdapter mRecipeRVAdapter;
+    MMADRecipeRVAdapter mRecipeRVAdapter;
     MakeMeADishVM mViewModel;
 
     @Override
@@ -64,9 +63,9 @@ public class MakeMeADishActivity extends AppCompatActivity {
         mChipRVAdapter = new TagChipRVAdapter();
         mBinding.rvChips.setAdapter(mChipRVAdapter);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        mBinding.rvRecipes.setLayoutManager(gridLayoutManager);
-        mRecipeRVAdapter = new RecipeRVAdapter(this);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this);
+        mBinding.rvRecipes.setLayoutManager(linearLayoutManager1);
+        mRecipeRVAdapter = new MMADRecipeRVAdapter(this);
         mBinding.rvRecipes.setAdapter(mRecipeRVAdapter);
     }
 }
